@@ -1,0 +1,12 @@
+"app_title" = "ピンイン変換";
+"enter_chinese_characters" = "中文字符を入力してください";
+"tonal_format" = "声調形式：";
+"tonal_signs" = "声調符号 (ā, á, ǎ, à)";
+"tonal_numbers" = "声調数字 (a1, a2, a3, a4)";
+"convert" = "変換";
+"result" = "結果";
+"enter_characters_to_convert" = "変換する中文字符を入力してください";
+"no_characters_entered" = "中文字符を入力してください";
+"conversion_error" = "変換中にエラーが発生しました";
+"loading_pinyin_data" = "ピンインデータを読み込み中...";
+"pinyin" = "ピンイン：";

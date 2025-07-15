@@ -1,0 +1,12 @@
+"app_title" = "Bộ chuyển đổi PinYin";
+"enter_chinese_characters" = "Nhập ký tự tiếng Trung";
+"tonal_format" = "Định dạng thanh điệu:";
+"tonal_signs" = "Dấu thanh điệu: (ā, á, ǎ, à)";
+"tonal_numbers" = "Số thanh điệu: (a1, a2, a3, a4)";
+"convert" = "Chuyển đổi";
+"result" = "Kết quả";
+"enter_characters_to_convert" = "Vui lòng nhập ký tự tiếng Trung để chuyển đổi";
+"no_characters_entered" = "Vui lòng nhập ký tự tiếng Trung";
+"conversion_error" = "Lỗi xảy ra trong quá trình chuyển đổi";
+"loading_pinyin_data" = "Đang tải dữ liệu pinyin...";
+"pinyin" = "Pinyin:";

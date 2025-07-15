@@ -1,0 +1,12 @@
+"app_title" = "PinYin Konverterare";
+"enter_chinese_characters" = "Ange kinesiska tecken";
+"tonal_format" = "Tonformat:";
+"tonal_signs" = "Tonmärken: (ā, á, ǎ, à)";
+"tonal_numbers" = "Tonnummer: (a1, a2, a3, a4)";
+"convert" = "Konvertera";
+"result" = "Resultat";
+"enter_characters_to_convert" = "Ange kinesiska tecken för att konvertera";
+"no_characters_entered" = "Ange kinesiska tecken";
+"conversion_error" = "Fel uppstod under konvertering";
+"loading_pinyin_data" = "Laddar pinyin-data...";
+"pinyin" = "Pinyin:";

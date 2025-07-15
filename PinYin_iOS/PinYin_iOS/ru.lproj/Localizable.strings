@@ -1,0 +1,12 @@
+"app_title" = "Конвертер Пиньинь";
+"enter_chinese_characters" = "Введите китайские символы";
+"tonal_format" = "Формат тона:";
+"tonal_signs" = "Тональные знаки: (ā, á, ǎ, à)";
+"tonal_numbers" = "Тональные числа: (a1, a2, a3, a4)";
+"convert" = "Конвертировать";
+"result" = "Результат";
+"enter_characters_to_convert" = "Введите китайские символы для конвертации";
+"no_characters_entered" = "Введите китайские символы";
+"conversion_error" = "Ошибка при конвертации";
+"loading_pinyin_data" = "Загрузка данных пиньинь...";
+"pinyin" = "Пиньинь:";

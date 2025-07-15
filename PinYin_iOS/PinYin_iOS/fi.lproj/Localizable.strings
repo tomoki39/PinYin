@@ -1,0 +1,12 @@
+"app_title" = "PinYin Muunnin";
+"enter_chinese_characters" = "Syötä kiinalaisia merkkejä";
+"tonal_format" = "Sävelmuoto:";
+"tonal_signs" = "Sävelmerkit: (ā, á, ǎ, à)";
+"tonal_numbers" = "Sävelnumerot: (a1, a2, a3, a4)";
+"convert" = "Muunna";
+"result" = "Tulos";
+"enter_characters_to_convert" = "Syötä kiinalaisia merkkejä muuntamista varten";
+"no_characters_entered" = "Syötä kiinalaisia merkkejä";
+"conversion_error" = "Virhe muunnossa";
+"loading_pinyin_data" = "Ladataan pinyin-tietoja...";
+"pinyin" = "Pinyin:";

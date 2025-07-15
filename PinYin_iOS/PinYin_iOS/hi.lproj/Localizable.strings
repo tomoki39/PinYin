@@ -1,0 +1,12 @@
+"app_title" = "पिनयिन कनवर्टर";
+"enter_chinese_characters" = "चीनी अक्षर दर्ज करें";
+"tonal_format" = "स्वर प्रारूप:";
+"tonal_signs" = "स्वर चिह्न: (ā, á, ǎ, à)";
+"tonal_numbers" = "स्वर संख्याएं: (a1, a2, a3, a4)";
+"convert" = "परिवर्तित करें";
+"result" = "परिणाम";
+"enter_characters_to_convert" = "कृपया परिवर्तित करने के लिए चीनी अक्षर दर्ज करें";
+"no_characters_entered" = "कृपया चीनी अक्षर दर्ज करें";
+"conversion_error" = "परिवर्तन के दौरान त्रुटि हुई";
+"loading_pinyin_data" = "पिनयिन डेटा लोड हो रहा है...";
+"pinyin" = "पिनयिन:";

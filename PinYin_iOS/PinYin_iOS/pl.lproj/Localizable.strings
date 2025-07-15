@@ -1,0 +1,12 @@
+"app_title" = "Konwerter PinYin";
+"enter_chinese_characters" = "Wprowadź znaki chińskie";
+"tonal_format" = "Format tonu:";
+"tonal_signs" = "Znaki tonalne: (ā, á, ǎ, à)";
+"tonal_numbers" = "Liczby tonalne: (a1, a2, a3, a4)";
+"convert" = "Konwertuj";
+"result" = "Wynik";
+"enter_characters_to_convert" = "Wprowadź znaki chińskie do konwersji";
+"no_characters_entered" = "Wprowadź znaki chińskie";
+"conversion_error" = "Błąd podczas konwersji";
+"loading_pinyin_data" = "Ładowanie danych pinyin...";
+"pinyin" = "Pinyin:";

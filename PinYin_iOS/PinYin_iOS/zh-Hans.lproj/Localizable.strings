@@ -1,0 +1,12 @@
+"app_title" = "中文转拼音";
+"enter_chinese_characters" = "输入中文字符";
+"tonal_format" = "声调格式：";
+"tonal_signs" = "声调符号 (ā, á, ǎ, à)";
+"tonal_numbers" = "声调数字 (a1, a2, a3, a4)";
+"convert" = "转换";
+"result" = "结果";
+"enter_characters_to_convert" = "请输入中文字符进行转换";
+"no_characters_entered" = "请输入中文字符";
+"conversion_error" = "转换时出现错误";
+"loading_pinyin_data" = "正在加载拼音数据...";
+"pinyin" = "拼音：";

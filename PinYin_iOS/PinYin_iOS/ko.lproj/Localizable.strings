@@ -1,0 +1,12 @@
+"app_title" = "한자 병음 변환기";
+"enter_chinese_characters" = "한자 문자를 입력하세요";
+"tonal_format" = "성조 형식:";
+"tonal_signs" = "성조 기호: (ā, á, ǎ, à)";
+"tonal_numbers" = "성조 숫자: (a1, a2, a3, a4)";
+"convert" = "변환";
+"result" = "결과";
+"enter_characters_to_convert" = "변환할 한자 문자를 입력하세요";
+"no_characters_entered" = "한자 문자를 입력하세요";
+"conversion_error" = "변환 중 오류가 발생했습니다";
+"loading_pinyin_data" = "병음 데이터를 로딩 중...";
+"pinyin" = "병음:";

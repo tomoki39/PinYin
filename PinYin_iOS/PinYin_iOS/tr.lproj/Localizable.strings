@@ -1,0 +1,12 @@
+"app_title" = "PinYin Dönüştürücü";
+"enter_chinese_characters" = "Çince karakterler girin";
+"tonal_format" = "Ton formatı:";
+"tonal_signs" = "Ton işaretleri: (ā, á, ǎ, à)";
+"tonal_numbers" = "Ton sayıları: (a1, a2, a3, a4)";
+"convert" = "Dönüştür";
+"result" = "Sonuç";
+"enter_characters_to_convert" = "Dönüştürmek için Çince karakterler girin";
+"no_characters_entered" = "Çince karakterler girin";
+"conversion_error" = "Dönüştürme sırasında hata oluştu";
+"loading_pinyin_data" = "PinYin verileri yükleniyor...";
+"pinyin" = "PinYin:";

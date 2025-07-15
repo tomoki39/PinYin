@@ -1,0 +1,12 @@
+"app_title" = "PinYin Converter";
+"enter_chinese_characters" = "Voer Chinese karakters in";
+"tonal_format" = "Toonformaat:";
+"tonal_signs" = "Toontekens: (ā, á, ǎ, à)";
+"tonal_numbers" = "Toonnummers: (a1, a2, a3, a4)";
+"convert" = "Converteren";
+"result" = "Resultaat";
+"enter_characters_to_convert" = "Voer Chinese karakters in om te converteren";
+"no_characters_entered" = "Voer Chinese karakters in";
+"conversion_error" = "Fout opgetreden tijdens conversie";
+"loading_pinyin_data" = "Pinyin gegevens laden...";
+"pinyin" = "Pinyin:";

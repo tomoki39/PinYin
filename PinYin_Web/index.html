@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>PinYin</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/pinyin_icon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/pinyin_icon_16x16.png">
+    <link rel="apple-touch-icon" href="icons/pinyin_icon_192x192.png">
+    
+    <!-- iOS Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="拼音">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icons/pinyin_icon_192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/pinyin_icon_144x144.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/pinyin_icon_192x192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/pinyin_icon_144x144.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            /* iOS-specific styles */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .app-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #DC143C;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .input-section {
+            margin-bottom: 25px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #DC143C;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .convert-btn {
+            background: linear-gradient(45deg, #DC143C, #B22222);
+            color: white;
+        }
+        
+        .convert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 20, 60, 0.3);
+        }
+        
+        .clear-btn {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .clear-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .result-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 100px;
+        }
+        
+        .result-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            word-wrap: break-word;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 10px;
+            border-left: 4px solid #DC143C;
+        }
+        
+        .instructions h3 {
+            color: #DC143C;
+            margin-bottom: 10px;
+        }
+        
+        .instructions p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .install-instructions {
+            margin-top: 15px;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .install-instructions h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .install-instructions ol {
+            color: #856404;
+            font-size: 12px;
+            padding-left: 20px;
+        }
+        
+        .install-instructions li {
+            margin-bottom: 4px;
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1a1a1a;
+            }
+            
+            .container {
+                background: #2c3e50;
+                color: white;
+            }
+            
+            .app-title {
+                color: #DC143C;
+            }
+            
+            .subtitle {
+                color: #bdc3c7;
+            }
+            
+            label {
+                color: #ecf0f1;
+            }
+            
+            input, textarea {
+                background: #34495e;
+                border-color: #7f8c8d;
+                color: white;
+            }
+            
+            input:focus, textarea:focus {
+                border-color: #DC143C;
+            }
+            
+            .result-section {
+                background: #34495e;
+            }
+            
+            .result-text {
+                color: #ecf0f1;
+            }
+            
+            .instructions {
+                background: #2c3e50;
+                border-left-color: #DC143C;
+            }
+            
+            .instructions h3 {
+                color: #DC143C;
+            }
+            
+            .instructions p {
+                color: #bdc3c7;
+            }
+            
+            .install-instructions {
+                background: #34495e;
+                border-left-color: #f39c12;
+            }
+            
+            .install-instructions h4 {
+                color: #f39c12;
+            }
+            
+            .install-instructions ol {
+                color: #f39c12;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="app-title" data-en="PinYin" data-ja="ピンイン" data-zh="拼音" data-ko="병음" data-es="PinYin" data-fr="PinYin" data-de="PinYin" data-it="PinYin" data-pt="PinYin" data-ru="Пиньинь" data-ar="بينيين" data-hi="पिनयिन" data-tr="PinYin" data-vi="PinYin" data-th="พินอิน" data-pl="PinYin" data-nl="PinYin" data-sv="PinYin" data-da="PinYin" data-fi="PinYin">PinYin</h1>
+            <p class="subtitle" data-en="Chinese to Pinyin Converter" data-ja="中国語からピンインへの変換" data-zh="中文转拼音工具" data-ko="중국어 병음 변환기" data-es="Convertidor de Chino a Pinyin" data-fr="Convertisseur Chinois vers Pinyin" data-de="Chinesisch zu Pinyin Konverter" data-it="Convertitore Cinese-Pinyin" data-pt="Conversor Chinês-Pinyin" data-ru="Конвертер китайского в пиньинь" data-ar="محول الصينية إلى بينيين" data-hi="चीनी से पिनयिन कनवर्टर" data-tr="Çince-Pinyin Dönüştürücü" data-vi="Bộ chuyển đổi tiếng Trung sang Pinyin" data-th="ตัวแปลงภาษาจีนเป็นพินอิน" data-pl="Konwerter chińskiego na Pinyin" data-nl="Chinees naar Pinyin converter" data-sv="Kinesisk till Pinyin konverterare" data-da="Kinesisk til Pinyin konverter" data-fi="Kiinan-Pinyin muunnin">Chinese to Pinyin Converter</p>
+        </div>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="chineseInput" data-en="Chinese Text:" data-ja="中国語テキスト:" data-zh="中文文本:" data-ko="중국어 텍스트:" data-es="Texto Chino:" data-fr="Texte Chinois:" data-de="Chinesischer Text:" data-it="Testo Cinese:" data-pt="Texto Chinês:" data-ru="Китайский текст:" data-ar="النص الصيني:" data-hi="चीनी पाठ:" data-tr="Çince Metin:" data-vi="Văn bản tiếng Trung:" data-th="ข้อความจีน:" data-pl="Tekst chiński:" data-nl="Chinese tekst:" data-sv="Kinesisk text:" data-da="Kinesisk tekst:" data-fi="Kiinan teksti:">Chinese Text:</label>
+                <textarea id="chineseInput" data-en="Enter Chinese characters here..." data-ja="ここに中国語文字を入力してください..." data-zh="在此输入中文字符..." data-ko="여기에 중국어 문자를 입력하세요..." data-es="Ingrese caracteres chinos aquí..." data-fr="Entrez des caractères chinois ici..." data-de="Geben Sie hier chinesische Zeichen ein..." data-it="Inserisci caratteri cinesi qui..." data-pt="Digite caracteres chineses aqui..." data-ru="Введите китайские символы здесь..." data-ar="أدخل الأحرف الصينية هنا..." data-hi="यहां चीनी अक्षर दर्ज करें..." data-tr="Buraya Çince karakterler girin..." data-vi="Nhập ký tự tiếng Trung tại đây..." data-th="ป้อนอักขระจีนที่นี่..." data-pl="Wprowadź znaki chińskie tutaj..." data-nl="Voer hier Chinese karakters in..." data-sv="Ange kinesiska tecken här..." data-da="Indtast kinesiske tegn her..." data-fi="Syötä kiinalaisia merkkejä tähän..." placeholder="Enter Chinese characters here..."></textarea>
+            </div>
+            <!-- 声調表記切り替えラジオボタン追加 -->
+            <div class="input-group" style="margin-bottom: 10px;">
+                <label data-en="Tone format:" data-ja="声調形式：" data-zh="声调格式：" data-ko="성조 형식:" data-es="Formato de tono:" data-fr="Format de ton:" data-de="Tonformat:" data-it="Formato tonale:" data-pt="Formato de tom:" data-ru="Формат тона:" data-ar="تنسيق النغمة:" data-hi="स्वर प्रारूप:" data-tr="Ton formatı:" data-vi="Định dạng thanh điệu:" data-th="รูปแบบเสียง:" data-pl="Format tonu:" data-nl="Toonformaat:" data-sv="Tonformat:" data-da="Toneformat:" data-fi="Sävelmuoto:">Tone format:</label>
+                <div style="display: flex; gap: 16px; margin-top: 4px;">
+                    <label style="display: flex; align-items: center; gap: 2px; white-space: nowrap;"><input type="radio" name="toneType" value="sign" checked> <span data-en="Tonal signs (ā, á, ǎ, à)" data-ja="声調符号 (ā, á, ǎ, à)" data-zh="声调符号 (ā, á, ǎ, à)" data-ko="성조 기호 (ā, á, ǎ, à)" data-es="Signos tonales (ā, á, ǎ, à)" data-fr="Signes tonaux (ā, á, ǎ, à)" data-de="Tonzeichen (ā, á, ǎ, à)" data-it="Segni tonali (ā, á, ǎ, à)" data-pt="Sinais tonais (ā, á, ǎ, à)" data-ru="Тональные знаки (ā, á, ǎ, à)" data-ar="علامات النغمة (ā, á, ǎ, à)" data-hi="स्वर चिह्न (ā, á, ǎ, à)" data-tr="Ton işaretleri (ā, á, ǎ, à)" data-vi="Dấu thanh điệu (ā, á, ǎ, à)" data-th="เครื่องหมายเสียง (ā, á, ǎ, à)" data-pl="Znaki tonalne (ā, á, ǎ, à)" data-nl="Toontekens (ā, á, ǎ, à)" data-sv="Tonala tecken (ā, á, ǎ, à)" data-da="Tonale tegn (ā, á, ǎ, à)" data-fi="Sävelmerkit (ā, á, ǎ, à)">Tonal signs (ā, á, ǎ, à)</span></label>
+                    <label style="display: flex; align-items: center; gap: 2px; white-space: nowrap;"><input type="radio" name="toneType" value="number"> <span data-en="Tonal numbers (a1, a2, a3, a4)" data-ja="声調数字 (a1, a2, a3, a4)" data-zh="声调数字 (a1, a2, a3, a4)" data-ko="성조 숫자 (a1, a2, a3, a4)" data-es="Números tonales (a1, a2, a3, a4)" data-fr="Nombres tonaux (a1, a2, a3, a4)" data-de="Tonzahlen (a1, a2, a3, a4)" data-it="Numeri tonali (a1, a2, a3, a4)" data-pt="Números tonais (a1, a2, a3, a4)" data-ru="Тональные числа (a1, a2, a3, a4)" data-ar="أرقام النغمة (a1, a2, a3, a4)" data-hi="स्वर संख्याएं (a1, a2, a3, a4)" data-tr="Ton numaraları (a1, a2, a3, a4)" data-vi="Số thanh điệu (a1, a2, a3, a4)" data-th="ตัวเลขเสียง (a1, a2, a3, a4)" data-pl="Liczby tonalne (a1, a2, a3, a4)" data-nl="Toonnummers (a1, a2, a3, a4)" data-sv="Tonala siffror (a1, a2, a3, a4)" data-da="Tonale tal (a1, a2, a3, a4)" data-fi="Sävelnumerot (a1, a2, a3, a4)">Tonal numbers (a1, a2, a3, a4)</span></label>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="convert-btn" onclick="convertToPinyin()" data-en="Convert to Pinyin" data-ja="ピンインに変換" data-zh="转换为拼音" data-ko="병음으로 변환" data-es="Convertir a Pinyin" data-fr="Convertir en Pinyin" data-de="Zu Pinyin konvertieren" data-it="Converti in Pinyin" data-pt="Converter para Pinyin" data-ru="Конвертировать в пиньинь" data-ar="تحويل إلى بينيين" data-hi="पिनयिन में बदलें" data-tr="Pinyin'e Dönüştür" data-vi="Chuyển đổi sang Pinyin" data-th="แปลงเป็นพินอิน" data-pl="Konwertuj na Pinyin" data-nl="Converteren naar Pinyin" data-sv="Konvertera till Pinyin" data-da="Konverter til Pinyin" data-fi="Muunna Pinyiniksi">Convert to Pinyin</button>
+                <button class="clear-btn" onclick="clearAll()" data-en="Clear" data-ja="クリア" data-zh="清除" data-ko="지우기" data-es="Limpiar" data-fr="Effacer" data-de="Löschen" data-it="Cancella" data-pt="Limpar" data-ru="Очистить" data-ar="مسح" data-hi="साफ़ करें" data-tr="Temizle" data-vi="Xóa" data-th="ล้าง" data-pl="Wyczyść" data-nl="Wissen" data-sv="Rensa" data-da="Ryd" data-fi="Tyhjennä">Clear</button>
+            </div>
+        </div>
+        
+        <div class="result-section">
+            <div id="result" class="result-text" data-en="Pinyin will appear here..." data-ja="ピンインがここに表示されます..." data-zh="拼音将在此显示..." data-ko="병음이 여기에 나타날 것입니다..." data-es="El Pinyin aparecerá aquí..." data-fr="Le Pinyin apparaîtra ici..." data-de="Pinyin wird hier erscheinen..." data-it="Il Pinyin apparirà qui..." data-pt="O Pinyin aparecerá aqui..." data-ru="Пиньинь появится здесь..." data-ar="سيظهر البينيين هنا..." data-hi="पिनयिन यहां दिखाई देगा..." data-tr="Pinyin burada görünecek..." data-vi="Pinyin sẽ xuất hiện ở đây..." data-th="พินอินจะปรากฏที่นี่..." data-pl="Pinyin pojawi się tutaj..." data-nl="Pinyin verschijnt hier..." data-sv="Pinyin kommer att visas här..." data-da="Pinyin vil vises her..." data-fi="Pinyin näkyy täällä...">Pinyin will appear here...</div>
+        </div>
+        
+        <div class="instructions">
+            <h3 data-en="📱 PinYin App" data-ja="📱 ピンインアプリ" data-zh="📱 拼音应用" data-ko="📱 병음 앱" data-es="📱 Aplicación PinYin" data-fr="📱 Application PinYin" data-de="📱 PinYin App" data-it="📱 App PinYin" data-pt="📱 Aplicativo PinYin" data-ru="📱 Приложение Пиньинь" data-ar="📱 تطبيق بينيين" data-hi="📱 पिनयिन ऐप" data-tr="📱 PinYin Uygulaması" data-vi="📱 Ứng dụng PinYin" data-th="📱 แอปพินอิน" data-pl="📱 Aplikacja PinYin" data-nl="📱 PinYin App" data-sv="📱 PinYin App" data-da="📱 PinYin App" data-fi="📱 PinYin-sovellus">📱 PinYin App</h3>
+            <p data-en="This is a Progressive Web App that works like a native app!" data-ja="これはネイティブアプリのように動作するプログレッシブウェブアプリです！" data-zh="这是一个像原生应用一样工作的渐进式网络应用！" data-ko="네이티브 앱처럼 작동하는 프로그레시브 웹 앱입니다!" data-es="¡Esta es una aplicación web progresiva que funciona como una aplicación nativa!" data-fr="C'est une application web progressive qui fonctionne comme une application native !" data-de="Dies ist eine Progressive Web App, die wie eine native App funktioniert!" data-it="Questa è un'app web progressiva che funziona come un'app nativa!" data-pt="Esta é um aplicativo web progressivo que funciona como um aplicativo nativo!" data-ru="Это прогрессивное веб-приложение, которое работает как нативное приложение!" data-ar="هذا تطبيق ويب تدريجي يعمل مثل التطبيق الأصلي!" data-hi="यह एक प्रोग्रेसिव वेब ऐप है जो नेटिव ऐप की तरह काम करता है!" data-tr="Bu, yerel uygulama gibi çalışan bir ilerleyici web uygulamasıdır!" data-vi="Đây là ứng dụng web tiến bộ hoạt động như ứng dụng gốc!" data-th="นี่คือแอปพลิเคชันเว็บแบบก้าวหน้าที่ทำงานเหมือนแอปเนทีฟ!" data-pl="To jest progresywna aplikacja internetowa, która działa jak natywna aplikacja!" data-nl="Dit is een progressieve web-app die werkt als een native app!" data-sv="Detta är en progressiv webbapp som fungerar som en inbyggd app!" data-da="Dette er en progressiv web-app der fungerer som en native app!" data-fi="Tämä on progressiivinen verkkosovellus, joka toimii kuin natiivisovellus!">This is a Progressive Web App that works like a native app!</p>
+        </div>
+        
+        <div class="install-instructions">
+            <h4 data-en="📲 Install as Native App:" data-ja="📲 ネイティブアプリとしてインストール:" data-zh="📲 作为原生应用安装:" data-ko="📲 네이티브 앱으로 설치:" data-es="📲 Instalar como aplicación nativa:" data-fr="📲 Installer comme application native:" data-de="📲 Als native App installieren:" data-it="📲 Installa come app nativa:" data-pt="📲 Instalar como aplicativo nativo:" data-ru="📲 Установить как нативное приложение:" data-ar="📲 تثبيت كتطبيق أصلي:" data-hi="📲 नेटिव ऐप के रूप में इंस्टॉल करें:" data-tr="📲 Yerel Uygulama Olarak Yükle:" data-vi="📲 Cài đặt như ứng dụng gốc:" data-th="📲 ติดตั้งเป็นแอปเนทีฟ:" data-pl="📲 Zainstaluj jako aplikację natywną:" data-nl="📲 Installeren als native app:" data-sv="📲 Installera som inbyggd app:" data-da="📲 Installer som native app:" data-fi="📲 Asenna natiivisovelluksena:">📲 Install as Native App:</h4>
+            <ol>
+                <li data-en="Tap the Share button (📤) in Safari" data-ja="Safariで共有ボタン（📤）をタップ" data-zh="在Safari中点击分享按钮（📤）" data-ko="Safari에서 공유 버튼(📤)을 탭하세요" data-es="Toca el botón Compartir (📤) en Safari" data-fr="Appuyez sur le bouton Partager (📤) dans Safari" data-de="Tippen Sie auf die Teilen-Schaltfläche (📤) in Safari" data-it="Tocca il pulsante Condividi (📤) in Safari" data-pt="Toque no botão Compartilhar (📤) no Safari" data-ru="Нажмите кнопку Поделиться (📤) в Safari" data-ar="انقر على زر المشاركة (📤) في Safari" data-hi="Safari में शेयर बटन (📤) टैप करें" data-tr="Safari'de Paylaş düğmesine (📤) dokunun" data-vi="Nhấn nút Chia sẻ (📤) trong Safari" data-th="แตะปุ่มแชร์ (📤) ใน Safari" data-pl="Dotknij przycisku Udostępnij (📤) w Safari" data-nl="Tik op de Deel-knop (📤) in Safari" data-sv="Tryck på Dela-knappen (📤) i Safari" data-da="Tryk på Del-knappen (📤) i Safari" data-fi="Napauta Jaa-painiketta (📤) Safarissa">Tap the Share button (📤) in Safari</li>
+                <li data-en="Select 'Add to Home Screen'" data-ja="「ホーム画面に追加」を選択" data-zh="选择"添加到主屏幕"" data-ko="'홈 화면에 추가'를 선택하세요" data-es="Selecciona 'Añadir a pantalla de inicio'" data-fr="Sélectionnez 'Ajouter à l'écran d'accueil'" data-de="Wählen Sie 'Zum Startbildschirm hinzufügen'" data-it="Seleziona 'Aggiungi alla schermata Home'" data-pt="Selecione 'Adicionar à tela inicial'" data-ru="Выберите 'Добавить на главный экран'" data-ar="اختر 'إضافة إلى الشاشة الرئيسية'" data-hi="'होम स्क्रीन में जोड़ें' चुनें" data-tr="'Ana Ekrana Ekle'yi seçin" data-vi="Chọn 'Thêm vào màn hình chính'" data-th="เลือก 'เพิ่มในหน้าจอหลัก'" data-pl="Wybierz 'Dodaj do ekranu głównego'" data-nl="Selecteer 'Voeg toe aan startscherm'" data-sv="Välj 'Lägg till på hemskärmen'" data-da="Vælg 'Tilføj til startskærm'" data-fi="Valitse 'Lisää kotinäyttöön'">Select 'Add to Home Screen'</li>
+                <li data-en="Tap 'Add' to install" data-ja="インストールするには「追加」をタップ" data-zh="点击"添加"进行安装" data-ko="설치하려면 '추가'를 탭하세요" data-es="Toca 'Añadir' para instalar" data-fr="Appuyez sur 'Ajouter' pour installer" data-de="Tippen Sie auf 'Hinzufügen' zum Installieren" data-it="Tocca 'Aggiungi' per installare" data-pt="Toque em 'Adicionar' para instalar" data-ru="Нажмите 'Добавить' для установки" data-ar="انقر على 'إضافة' للتثبيت" data-hi="इंस्टॉल करने के लिए 'जोड़ें' टैप करें" data-tr="Yüklemek için 'Ekle'ye dokunun" data-vi="Nhấn 'Thêm' để cài đặt" data-th="แตะ 'เพิ่ม' เพื่อติดตั้ง" data-pl="Dotknij 'Dodaj', aby zainstalować" data-nl="Tik op 'Toevoegen' om te installeren" data-sv="Tryck på 'Lägg till' för att installera" data-da="Tryk på 'Tilføj' for at installere" data-fi="Napauta 'Lisää' asentaaksesi">Tap 'Add' to install</li>
+                <li data-en="The PinYin icon will appear on your home screen!" data-ja="ピンインアイコンがホーム画面に表示されます！" data-zh="拼音图标将出现在您的主屏幕上！" data-ko="PinYin 아이콘이 홈 화면에 나타날 것입니다!" data-es="¡El icono de PinYin aparecerá en tu pantalla de inicio!" data-fr="L'icône PinYin apparaîtra sur votre écran d'accueil !" data-de="Das PinYin-Symbol erscheint auf Ihrem Startbildschirm!" data-it="L'icona PinYin apparirà sulla schermata Home!" data-pt="O ícone PinYin aparecerá na sua tela inicial!" data-ru="Значок Пиньинь появится на главном экране!" data-ar="ستظهر أيقونة بينيين على شاشتك الرئيسية!" data-hi="PinYin आइकन आपकी होम स्क्रीन पर दिखाई देगा!" data-tr="PinYin simgesi ana ekranınızda görünecek!" data-vi="Biểu tượng PinYin sẽ xuất hiện trên màn hình chính của bạn!" data-th="ไอคอนพินอินจะปรากฏบนหน้าจอหลักของคุณ!" data-pl="Ikona PinYin pojawi się na ekranie głównym!" data-nl="Het PinYin-pictogram verschijnt op je startscherm!" data-sv="PinYin-ikonen kommer att visas på din hemskärm!" data-da="PinYin-ikonet vil vises på din startskærm!" data-fi="PinYin-ikoni näkyy kotinäytölläsi!">The PinYin icon will appear on your home screen!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Pinyin mapping data
+        const pinyinMap = {};
+        let currentLanguage = 'en';
+        
+        // Supported languages mapping
+        const supportedLanguages = {
+            'en': 'en', 'en-US': 'en', 'en-GB': 'en',
+            'ja': 'ja', 'ja-JP': 'ja',
+            'zh': 'zh', 'zh-CN': 'zh', 'zh-TW': 'zh', 'zh-HK': 'zh',
+            'ko': 'ko', 'ko-KR': 'ko',
+            'es': 'es', 'es-ES': 'es', 'es-MX': 'es',
+            'fr': 'fr', 'fr-FR': 'fr', 'fr-CA': 'fr',
+            'de': 'de', 'de-DE': 'de', 'de-AT': 'de', 'de-CH': 'de',
+            'it': 'it', 'it-IT': 'it',
+            'pt': 'pt', 'pt-PT': 'pt', 'pt-BR': 'pt',
+            'ru': 'ru', 'ru-RU': 'ru',
+            'ar': 'ar', 'ar-SA': 'ar', 'ar-EG': 'ar',
+            'hi': 'hi', 'hi-IN': 'hi',
+            'tr': 'tr', 'tr-TR': 'tr',
+            'vi': 'vi', 'vi-VN': 'vi',
+            'th': 'th', 'th-TH': 'th',
+            'pl': 'pl', 'pl-PL': 'pl',
+            'nl': 'nl', 'nl-NL': 'nl', 'nl-BE': 'nl',
+            'sv': 'sv', 'sv-SE': 'sv',
+            'da': 'da', 'da-DK': 'da',
+            'fi': 'fi', 'fi-FI': 'fi'
+        };
+        
+        // Detect browser language and set UI language
+        function detectAndSetLanguage() {
+            // Get browser language
+            const browserLang = navigator.language || navigator.userLanguage || 'en';
+            
+            // Find the best matching supported language
+            let detectedLang = 'en'; // Default to English
+            
+            // First try exact match
+            if (supportedLanguages[browserLang]) {
+                detectedLang = supportedLanguages[browserLang];
+            } else {
+                // Try to match language code (e.g., 'en' from 'en-US')
+                const langCode = browserLang.split('-')[0];
+                for (const [fullCode, supportedCode] of Object.entries(supportedLanguages)) {
+                    if (fullCode.startsWith(langCode + '-') || fullCode === langCode) {
+                        detectedLang = supportedCode;
+                        break;
+                    }
+                }
+            }
+            
+            // Set the language
+            setLanguage(detectedLang);
+        }
+        
+        // Set language and update UI
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+                const translation = element.getAttribute('data-' + lang);
+                if (translation) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translation;
+                    } else {
+                        element.textContent = translation;
+                    }
+                }
+            });
+            
+            // Update document title
+            const titleElement = document.querySelector('.app-title');
+            if (titleElement) {
+                document.title = titleElement.textContent;
+            }
+        }
+        
+        // Load pinyin data
+        async function loadPinyinData() {
+            try {
+                const response = await fetch('../pinyin_map.json');
+                const data = await response.json();
+                Object.assign(pinyinMap, data);
+            } catch (error) {
+                console.error('Error loading pinyin data:', error);
+            }
+        }
+        
+        // Convert Chinese to Pinyin
+        function convertToPinyin() {
+            const input = document.getElementById('chineseInput').value.trim();
+            const resultDiv = document.getElementById('result');
+            // ラジオボタンの値取得
+            const toneType = document.querySelector('input[name="toneType"]:checked').value;
+            if (!input) {
+                const noInputText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'Please enter some Chinese text...';
+                resultDiv.textContent = noInputText;
+                return;
+            }
+            const loadingText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'Converting...';
+            resultDiv.innerHTML = '<div class="loading">' + loadingText + '</div>';
+            setTimeout(() => {
+                let result = '';
+                for (let char of input) {
+                    if (pinyinMap[char]) {
+                        let pinyin = pinyinMap[char];
+                        if (toneType === 'number') {
+                            pinyin = pinyinWithNumber(pinyin);
+                        }
+                        result += pinyin + ' ';
+                    } else if (char.match(/[\u4e00-\u9fff]/)) {
+                        result += char + ' ';
+                    } else {
+                        result += char;
+                    }
+                }
+                const noChineseText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'No Chinese characters found.';
+                resultDiv.textContent = result.trim() || noChineseText;
+            }, 100);
+        }
+        // 声調記号→数字変換関数
+        function pinyinWithNumber(pinyin) {
+            const toneMap = {
+                'ā': ['a', '1'], 'á': ['a', '2'], 'ǎ': ['a', '3'], 'à': ['a', '4'],
+                'ē': ['e', '1'], 'é': ['e', '2'], 'ě': ['e', '3'], 'è': ['e', '4'],
+                'ī': ['i', '1'], 'í': ['i', '2'], 'ǐ': ['i', '3'], 'ì': ['i', '4'],
+                'ō': ['o', '1'], 'ó': ['o', '2'], 'ǒ': ['o', '3'], 'ò': ['o', '4'],
+                'ū': ['u', '1'], 'ú': ['u', '2'], 'ǔ': ['u', '3'], 'ù': ['u', '4'],
+                'ǖ': ['v', '1'], 'ǘ': ['v', '2'], 'ǚ': ['v', '3'], 'ǜ': ['v', '4']
+            };
+            let toneNumber = '';
+            let plain = '';
+            for (const [key, [base, num]] of Object.entries(toneMap)) {
+                if (pinyin.includes(key)) {
+                    plain = pinyin.replace(key, base);
+                    toneNumber = num;
+                    break;
+                }
+            }
+            if (toneNumber) {
+                return plain + toneNumber;
+            } else {
+                return pinyin;
+            }
+        }
+        
+        // Clear all inputs and results
+        function clearAll() {
+            document.getElementById('chineseInput').value = '';
+            const resultDiv = document.getElementById('result');
+            const placeholderText = resultDiv.getAttribute('data-' + currentLanguage) || 'Pinyin will appear here...';
+            resultDiv.textContent = placeholderText;
+        }
+        
+        // Handle Enter key in textarea
+        document.getElementById('chineseInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                convertToPinyin();
+            }
+        });
+        
+        // Initialize app
+        function initApp() {
+            // Detect and set language first
+            detectAndSetLanguage();
+            
+            // Then load pinyin data
+            loadPinyinData();
+        }
+        
+        // Initialize when page loads
+        initApp();
+        
+        // Service Worker registration for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                })
+                .catch(function(err) {
+                    console.log('ServiceWorker registration failed');
+                });
+        }
+    </script>
+</body>
+</html> 

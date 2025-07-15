@@ -1,0 +1,12 @@
+"app_title" = "PinYin";
+"enter_chinese_characters" = "Enter Chinese characters";
+"tonal_format" = "Tone format:";
+"tonal_signs" = "Tonal signs (ā, á, ǎ, à)";
+"tonal_numbers" = "Tonal numbers (a1, a2, a3, a4)";
+"convert" = "Convert";
+"result" = "Result";
+"enter_characters_to_convert" = "Please enter Chinese characters to convert";
+"no_characters_entered" = "Please enter Chinese characters";
+"conversion_error" = "Error occurred during conversion";
+"loading_pinyin_data" = "Loading pinyin data...";
+"pinyin" = "Pinyin:";
