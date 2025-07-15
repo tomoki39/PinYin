@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PinYin</string>
+    <string name="app_title">Tiếng Trung sang Pinyin</string>
+    <string name="enter_chinese_characters">Nhập ký tự tiếng Trung</string>
+    <string name="tonal_format">Định dạng thanh điệu:</string>
+    <string name="tonal_signs">Dấu thanh (ā, á, ǎ, à)</string>
+    <string name="tonal_numbers">Số thanh điệu (a1, a2, a3, a4)</string>
+    <string name="result">Kết quả</string>
+    <string name="enter_characters_to_convert">Vui lòng nhập ký tự tiếng Trung để chuyển đổi</string>
+    <string name="no_characters_entered">Vui lòng nhập ký tự tiếng Trung</string>
+    <string name="conversion_error">Lỗi khi chuyển đổi</string>
+</resources>

@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.pinyin.app-mergeReleaseResources-29:/values-en/values-en.xml",
+            "map": [
+                {
+                    "source": "/Users/tomoki/MyApps/PinYin/PinYin_Android/app/src/main/res/values-en/strings.xml",
+                    "from": {
+                        "startLines": "1,2,11,7,9,3,10,8,4,6,5",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "16,60,651,384,470,116,569,428,194,312,248",
+                        "endColumns": "43,55,77,43,98,77,81,41,53,71,63",
+                        "endOffsets": "55,111,724,423,564,189,646,465,243,379,307"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,99,155,233,277,376,454,536,578,632,704",
+                        "endColumns": "43,55,77,43,98,77,81,41,53,71,63",
+                        "endOffsets": "94,150,228,272,371,449,531,573,627,699,763"
+                    }
+                }
+            ]
+        }
+    ]
+}

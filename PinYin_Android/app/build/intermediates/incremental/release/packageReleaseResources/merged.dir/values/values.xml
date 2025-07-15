@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="accent_color">#FF5722</color>
+    <color name="background">#FAFAFA</color>
+    <color name="black">#000000</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="md_on_primary">#FFFFFF</color>
+    <color name="md_on_secondary">#FFFFFF</color>
+    <color name="md_on_surface">#212121</color>
+    <color name="md_on_surface_variant">#757575</color>
+    <color name="md_primary">#DC143C</color>
+    <color name="md_secondary">#FF5722</color>
+    <color name="md_surface">#FAFAFA</color>
+    <color name="md_surface_variant">#FFFFFF</color>
+    <color name="primary_color">#DC143C</color>
+    <color name="primary_dark">#B22222</color>
+    <color name="primary_light">#FFB6C1</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="white">#FFFFFF</color>
+    <string name="app_description_ar">حول الأحرف الصينية إلى البينيين بسهولة ودقة. مثالي لمتعلمي اللغة والطلاب وأي شخص يعمل مع النص الصيني. الميزات: التحويل في الوقت الفعلي، دعم أكثر من 20 لغة وواجهة نظيفة وبديهية.</string>
+    <string name="app_description_de">Konvertieren Sie chinesische Schriftzeichen einfach und genau in Pinyin. Perfekt für Sprachlerner, Studenten und alle, die mit chinesischem Text arbeiten. Features: Echtzeit-Konvertierung, Unterstützung für über 20 Sprachen und eine saubere, intuitive Benutzeroberfläche.</string>
+    <string name="app_description_en">Convert Chinese characters to Pinyin easily and accurately. Perfect for language learners, students, and anyone working with Chinese text. Features real-time conversion, support for 20+ languages, and a clean, intuitive interface.</string>
+    <string name="app_description_es">Convierte caracteres chinos a Pinyin de manera fácil y precisa. Perfecto para estudiantes de idiomas, estudiantes y cualquiera que trabaje con texto chino. Características: conversión en tiempo real, soporte para más de 20 idiomas e interfaz limpia e intuitiva.</string>
+    <string name="app_description_fi">Muunna kiinalaisia merkkejä pinyiniksi helposti ja tarkasti. Täydellinen kieltenoppijoille, opiskelijoille ja kaikille, jotka työskentelevät kiinalaisen tekstin parissa. Ominaisuudet: reaaliaikainen muunnos, tuki yli 20 kielelle ja puhdas, intuitiivinen käyttöliittymä.</string>
+    <string name="app_description_fr">Convertissez facilement et précisément les caractères chinois en Pinyin. Parfait pour les apprenants de langues, les étudiants et quiconque travaille avec du texte chinois. Fonctionnalités : conversion en temps réel, prise en charge de plus de 20 langues et interface propre et intuitive.</string>
+    <string name="app_description_hi">चीनी अक्षरों को आसानी से और सटीक रूप से पिनयिन में बदलें। भाषा सीखने वालों, छात्रों और चीनी पाठ के साथ काम करने वाले किसी भी व्यक्ति के लिए बिल्कुल सही। विशेषताएं: रीयल-टाइम रूपांतरण, 20+ भाषाओं का समर्थन और एक साफ, सहज ज्ञान युक्त इंटरफेस।</string>
+    <string name="app_description_it">Converti facilmente e accuratamente i caratteri cinesi in Pinyin. Perfetto per studenti di lingue, studenti e chiunque lavori con testi cinesi. Caratteristiche: conversione in tempo reale, supporto per oltre 20 lingue e un\'interfaccia pulita e intuitiva.</string>
+    <string name="app_description_ja">中国語の漢字をピンインに簡単かつ正確に変換します。語学学習者、学生、中国語テキストを扱う方に最適です。リアルタイム変換、20以上の言語対応、クリーンで直感的なインターフェースを特徴としています。</string>
+    <string name="app_description_ko">중국어 한자를 병음으로 쉽고 정확하게 변환합니다. 언어 학습자, 학생, 중국어 텍스트를 다루는 모든 분에게 완벽합니다. 실시간 변환, 20개 이상의 언어 지원, 깔끔하고 직관적인 인터페이스를 특징으로 합니다.</string>
+    <string name="app_description_nl">Converteer Chinese karakters eenvoudig en nauwkeurig naar Pinyin. Perfect voor taalleerders, studenten en iedereen die met Chinese tekst werkt. Functies: real-time conversie, ondersteuning voor meer dan 20 talen en een schone, intuïtieve interface.</string>
+    <string name="app_description_pl">Konwertuj chińskie znaki na Pinyin łatwo i dokładnie. Idealne dla uczących się języków, studentów i każdego, kto pracuje z chińskim tekstem. Funkcje: konwersja w czasie rzeczywistym, obsługa ponad 20 języków i czysty, intuicyjny interfejs.</string>
+    <string name="app_description_pt">Converta caracteres chineses para Pinyin de forma fácil e precisa. Perfeito para estudantes de idiomas, alunos e qualquer pessoa que trabalhe com texto chinês. Recursos: conversão em tempo real, suporte para mais de 20 idiomas e interface limpa e intuitiva.</string>
+    <string name="app_description_ru">Легко и точно конвертируйте китайские иероглифы в пиньинь. Идеально подходит для изучающих языки, студентов и всех, кто работает с китайским текстом. Особенности: конвертация в реальном времени, поддержка более 20 языков и чистый, интуитивный интерфейс.</string>
+    <string name="app_description_sv">Konvertera kinesiska tecken till Pinyin enkelt och exakt. Perfekt för språkinlärare, studenter och alla som arbetar med kinesisk text. Funktioner: realtidskonvertering, stöd för över 20 språk och ett rent, intuitivt gränssnitt.</string>
+    <string name="app_description_th">แปลงอักษรจีนเป็นพินอินได้อย่างง่ายดายและแม่นยำ เหมาะสำหรับผู้เรียนภาษา นักเรียน และทุกคนที่ทำงานกับข้อความจีน คุณสมบัติ: การแปลงแบบเรียลไทม์ รองรับมากกว่า 20 ภาษา และอินเทอร์เฟซที่สะอาดและใช้งานง่าย</string>
+    <string name="app_description_tr">Çince karakterleri kolayca ve doğru bir şekilde Pinyin\'e dönüştürün. Dil öğrenenler, öğrenciler ve Çince metinle çalışan herkes için mükemmel. Özellikler: gerçek zamanlı dönüştürme, 20+ dil desteği ve temiz, sezgisel arayüz.</string>
+    <string name="app_description_vi">Chuyển đổi ký tự tiếng Trung sang Pinyin một cách dễ dàng và chính xác. Hoàn hảo cho người học ngôn ngữ, sinh viên và bất kỳ ai làm việc với văn bản tiếng Trung. Tính năng: chuyển đổi thời gian thực, hỗ trợ hơn 20 ngôn ngữ và giao diện sạch sẽ, trực quan.</string>
+    <string name="app_description_zh">轻松准确地将中文字符转换为拼音。非常适合语言学习者、学生和任何处理中文文本的人。具有实时转换、支持20多种语言以及简洁直观的界面。</string>
+    <string name="app_name">PinYin</string>
+    <string name="app_title">中文转拼音</string>
+    <string name="conversion_error">转换时出现错误</string>
+    <string name="enter_characters_to_convert">请输入中文字符进行转换</string>
+    <string name="enter_chinese_characters">输入中文字符</string>
+    <string name="no_characters_entered">请输入中文字符</string>
+    <string name="result">结果</string>
+    <string name="tonal_format">声调格式：</string>
+    <string name="tonal_numbers">声调数字 (a1, a2, a3, a4)</string>
+    <string name="tonal_signs">声调符号 (ā, á, ǎ, à)</string>
+    <style name="Theme.PinYin" parent="Theme.Material3.DayNight">
+        
+        <item name="colorPrimary">@color/md_primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/md_on_primary</item>
+        
+        <item name="colorSecondary">@color/md_secondary</item>
+        <item name="colorSecondaryVariant">@color/accent_color</item>
+        <item name="colorOnSecondary">@color/md_on_secondary</item>
+        
+        <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
+        
+        <item name="android:windowBackground">@color/md_surface</item>
+        
+        <item name="android:textColorPrimary">@color/md_on_surface</item>
+        <item name="android:textColorSecondary">@color/md_on_surface_variant</item>
+        
+        <item name="colorSurface">@color/md_surface</item>
+        <item name="colorOnSurface">@color/md_on_surface</item>
+        <item name="colorSurfaceVariant">@color/md_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/md_on_surface_variant</item>
+        
+        <item name="android:navigationBarColor">@color/md_surface</item>
+        
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" ns1:targetApi="27">true</item>
+    </style>
+</resources>

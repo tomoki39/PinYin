@@ -1,0 +1,4 @@
+#Sun Jul 13 18:45:22 JST 2025
+base.0=/Users/tomoki/MyApps/PinYin/PinYin_Android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

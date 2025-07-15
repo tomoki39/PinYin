@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PinYin</string>
+    <string name="app_title">Çince\'den Pinyin\'e</string>
+    <string name="enter_chinese_characters">Çince karakterler girin</string>
+    <string name="tonal_format">Ton formatı:</string>
+    <string name="tonal_signs">Ton işaretleri (ā, á, ǎ, à)</string>
+    <string name="tonal_numbers">Ton numaraları (a1, a2, a3, a4)</string>
+    <string name="result">Sonuç</string>
+    <string name="enter_characters_to_convert">Lütfen dönüştürülecek Çince karakterler girin</string>
+    <string name="no_characters_entered">Lütfen Çince karakterler girin</string>
+    <string name="conversion_error">Dönüştürme sırasında hata</string>
+</resources>

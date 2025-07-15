@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PinYin</string>
+    <string name="app_title">Chinois vers Pinyin</string>
+    <string name="conversion_error">Erreur lors de la conversion</string>
+    <string name="convert">Convertir</string>
+    <string name="enter_characters_to_convert">Veuillez entrer des caractères chinois à convertir</string>
+    <string name="enter_chinese_characters">Entrez des caractères chinois</string>
+    <string name="no_characters_entered">Veuillez entrer des caractères chinois</string>
+    <string name="result">Résultat</string>
+    <string name="tonal_format">Format de ton :</string>
+    <string name="tonal_numbers">Nombres de ton (a1, a2, a3, a4)</string>
+    <string name="tonal_signs">Marques de ton (ā, á, ǎ, à)</string>
+</resources>

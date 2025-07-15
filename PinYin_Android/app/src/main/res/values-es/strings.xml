@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PinYin</string>
+    <string name="app_title">Chino a Pinyin</string>
+    <string name="enter_chinese_characters">Ingrese caracteres chinos</string>
+    <string name="tonal_format">Formato de tono:</string>
+    <string name="tonal_signs">Marcas de tono (ā, á, ǎ, à)</string>
+    <string name="tonal_numbers">Números de tono (a1, a2, a3, a4)</string>
+    <string name="result">Resultado</string>
+    <string name="enter_characters_to_convert">Por favor ingrese caracteres chinos para convertir</string>
+    <string name="no_characters_entered">Por favor ingrese caracteres chinos</string>
+    <string name="conversion_error">Error durante la conversión</string>
+</resources>

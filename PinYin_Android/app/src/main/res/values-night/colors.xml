@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_color">#FF6B6B</color>
+    <color name="primary_dark">#FF5252</color>
+    <color name="primary_light">#FFCDD2</color>
+    <color name="accent_color">#FF8A65</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#B3FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="background">#2D2D2D</color>
+    <color name="card_background">#3A3A3A</color>
+    <!-- Material Design 3 colors -->
+    <color name="md_primary">#FF6B6B</color>
+    <color name="md_on_primary">#000000</color>
+    <color name="md_secondary">#FF8A65</color>
+    <color name="md_on_secondary">#000000</color>
+    <color name="md_surface">#2D2D2D</color>
+    <color name="md_on_surface">#FFFFFF</color>
+    <color name="md_surface_variant">#3A3A3A</color>
+    <color name="md_on_surface_variant">#B3FFFFFF</color>
+</resources> 
