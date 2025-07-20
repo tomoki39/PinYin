@@ -323,22 +323,14 @@
 
     <script>
 (function() {
-  // ルート（/）でアクセスされた場合のみリダイレクト
-  var path = window.location.pathname.replace(/\/+/g, '/');
-  if (path === '/' || path === '') {
-    // サポート言語リスト
-    var supported = ['en','ja','zh','ko','es','fr','de','it','pt','ru','ar','hi','tr','vi'];
-    var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-    var lang = 'en';
-    // 完全一致
-    if (supported.includes(browserLang)) {
-      lang = browserLang;
-    } else {
-      // 2文字一致
-      var short = browserLang.split('-')[0];
-      if (supported.includes(short)) lang = short;
-    }
-    window.location.replace('/' + lang);
+  var supported = ['en','ja','zh','ko','es','fr','de','it','pt','ru','ar','hi','tr','vi'];
+  var path = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
+  if (path && !supported.includes(path)) {
+    var style = '<style>body{background:#fff;color:#111;margin:0;padding:0;font-family:sans-serif;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;}@media (prefers-color-scheme:dark){body{background:#111;color:#fff;}}</style>';
+    document.body.innerHTML = style + '<div><h1 style="font-size:2.5em;margin-bottom:0.5em;">404 Not Found</h1><div style="font-size:1.2em;">The requested URL was not found on this server.</div></div>';
+    document.title = '404 Not Found';
+    history.replaceState(null, '', '/404');
+    throw new Error('404');
   }
 })();
         // Pinyin mapping data
