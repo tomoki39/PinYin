@@ -445,6 +445,7 @@
             const resultDiv = document.getElementById('result');
             // ラジオボタンの値取得
             const toneType = document.querySelector('input[name="toneType"]:checked').value;
+            console.log('pinyinMap keys:', Object.keys(pinyinMap).slice(0, 10), '... total:', Object.keys(pinyinMap).length);
             if (!input) {
                 const noInputText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'Please enter some Chinese text...';
                 resultDiv.textContent = noInputText;
@@ -467,6 +468,7 @@
                         result += char;
                     }
                 }
+                console.log('convertToPinyin result:', result.trim());
                 const noChineseText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'No Chinese characters found.';
                 resultDiv.textContent = result.trim() || noChineseText;
             }, 100);
@@ -515,8 +517,7 @@
         // Initialize app
         async function initApp() {
             await setUILanguage();
-            detectAndSetLanguage(); // 既存のdata-xx属性による多言語も維持したい場合
-            loadPinyinData();
+            await loadPinyinData();
         }
         
         // Initialize when page loads
@@ -534,4 +535,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
