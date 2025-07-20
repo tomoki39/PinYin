@@ -6,9 +6,9 @@
     <title>PinYin</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/pinyin_icon_32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/pinyin_icon_16x16.png">
-    <link rel="apple-touch-icon" href="icons/pinyin_icon_192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/pinyin_icon_32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/pinyin_icon_16x16.png">
+    <link rel="apple-touch-icon" href="/icons/pinyin_icon_192x192.png">
     
     <!-- iOS Web App Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,13 +16,13 @@
     <meta name="apple-mobile-web-app-title" content="拼音">
     
     <!-- iOS Icons -->
-    <link rel="apple-touch-icon" href="icons/pinyin_icon_192x192.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="icons/pinyin_icon_144x144.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/pinyin_icon_192x192.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="icons/pinyin_icon_144x144.png">
+    <link rel="apple-touch-icon" href="/icons/pinyin_icon_192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/pinyin_icon_144x144.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/pinyin_icon_192x192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/pinyin_icon_144x144.png">
     
     <!-- Web App Manifest -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
     
     <style>
         * {
@@ -322,6 +322,25 @@
     </div>
 
     <script>
+(function() {
+  // ルート（/）でアクセスされた場合のみリダイレクト
+  var path = window.location.pathname.replace(/\/+/g, '/');
+  if (path === '/' || path === '') {
+    // サポート言語リスト
+    var supported = ['en','ja','zh','ko','es','fr','de','it','pt','ru','ar','hi','tr','vi'];
+    var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    var lang = 'en';
+    // 完全一致
+    if (supported.includes(browserLang)) {
+      lang = browserLang;
+    } else {
+      // 2文字一致
+      var short = browserLang.split('-')[0];
+      if (supported.includes(short)) lang = short;
+    }
+    window.location.replace('/' + lang);
+  }
+})();
         // Pinyin mapping data
         const pinyinMap = {};
         let currentLanguage = 'en';
@@ -350,59 +369,77 @@
             'fi': 'fi', 'fi-FI': 'fi'
         };
         
-        // Detect browser language and set UI language
-        function detectAndSetLanguage() {
-            // Get browser language
-            const browserLang = navigator.language || navigator.userLanguage || 'en';
-            
-            // Find the best matching supported language
-            let detectedLang = 'en'; // Default to English
-            
-            // First try exact match
-            if (supportedLanguages[browserLang]) {
-                detectedLang = supportedLanguages[browserLang];
-            } else {
-                // Try to match language code (e.g., 'en' from 'en-US')
-                const langCode = browserLang.split('-')[0];
-                for (const [fullCode, supportedCode] of Object.entries(supportedLanguages)) {
-                    if (fullCode.startsWith(langCode + '-') || fullCode === langCode) {
-                        detectedLang = supportedCode;
-                        break;
-                    }
-                }
+        // Detect language from URL path (e.g. /ja, /fr)
+        function detectLangFromPath() {
+            const path = window.location.pathname.split('/').filter(Boolean);
+            if (path.length > 0 && supportedLanguages[path[0]]) {
+                return supportedLanguages[path[0]];
             }
-            
-            // Set the language
-            setLanguage(detectedLang);
+            return null;
         }
-        
-        // Set language and update UI
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            
-            // Update all translatable elements
-            document.querySelectorAll('[data-' + lang + ']').forEach(element => {
-                const translation = element.getAttribute('data-' + lang);
-                if (translation) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translation;
-                    } else {
-                        element.textContent = translation;
-                    }
-                }
-            });
-            
-            // Update document title
-            const titleElement = document.querySelector('.app-title');
-            if (titleElement) {
-                document.title = titleElement.textContent;
+
+        // Detect browser language
+        function detectLangFromBrowser() {
+            const browserLang = navigator.language || navigator.userLanguage || 'en';
+            if (supportedLanguages[browserLang]) {
+                return supportedLanguages[browserLang];
             }
+            const langCode = browserLang.split('-')[0];
+            for (const [fullCode, supportedCode] of Object.entries(supportedLanguages)) {
+                if (fullCode.startsWith(langCode + '-') || fullCode === langCode) {
+                    return supportedCode;
+                }
+            }
+            return 'en';
+        }
+
+        // Load translations from locales/xx.json
+        async function loadTranslations(lang) {
+            try {
+                const res = await fetch(`/locales/${lang}.json`);
+                if (!res.ok) throw new Error('not found');
+                return await res.json();
+            } catch {
+                // fallback to English
+                if (lang !== 'en') return loadTranslations('en');
+                return {};
+            }
+        }
+
+        // Apply translations to UI
+        function applyTranslations(translations) {
+            if (translations.app_title) {
+                document.querySelector('.app-title').textContent = translations.app_title;
+                document.title = translations.app_title;
+            }
+            if (translations.input_label) {
+                document.querySelector('label[for="chineseInput"]').textContent = translations.input_label;
+            }
+            if (translations.convert_btn) {
+                document.querySelector('.convert-btn').textContent = translations.convert_btn;
+            }
+            if (translations.clear_btn) {
+                document.querySelector('.clear-btn').textContent = translations.clear_btn;
+            }
+            if (translations.result_label) {
+                // 例: 結果欄のラベルがあれば反映
+                // document.querySelector('.result-label').textContent = translations.result_label;
+            }
+            // 必要に応じて他の要素も追加
+        }
+
+        // 言語決定とUI反映
+        async function setUILanguage() {
+            let lang = detectLangFromPath() || detectLangFromBrowser();
+            currentLanguage = lang;
+            const translations = await loadTranslations(lang);
+            applyTranslations(translations);
         }
         
         // Load pinyin data
         async function loadPinyinData() {
             try {
-                const response = await fetch('../pinyin_map.json');
+                const response = await fetch('/pinyin_map.json');
                 const data = await response.json();
                 Object.assign(pinyinMap, data);
             } catch (error) {
@@ -484,11 +521,9 @@
         });
         
         // Initialize app
-        function initApp() {
-            // Detect and set language first
-            detectAndSetLanguage();
-            
-            // Then load pinyin data
+        async function initApp() {
+            await setUILanguage();
+            detectAndSetLanguage(); // 既存のdata-xx属性による多言語も維持したい場合
             loadPinyinData();
         }
         
@@ -497,7 +532,7 @@
         
         // Service Worker registration for PWA
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
+            navigator.serviceWorker.register('/sw.js')
                 .then(function(registration) {
                     console.log('ServiceWorker registration successful');
                 })

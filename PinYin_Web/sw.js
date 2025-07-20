@@ -4,9 +4,9 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
-  '../icons/design4_typography_192x192.png',
-  '../icons/design4_typography_512x512.png',
-  '../pinyin_map.json'
+  '/icons/design4_typography_192x192.png',
+  '/icons/design4_typography_512x512.png',
+  '/pinyin_map.json'
 ];
 
 self.addEventListener('install', function(event) {
