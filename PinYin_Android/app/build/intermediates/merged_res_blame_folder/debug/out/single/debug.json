@@ -12,16 +12,20 @@
         "source": "com.example.pinyin.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.example.pinyin.app-merged_res-31:/layout_activity_main.xml.flat",
-        "source": "com.example.pinyin.app-main-33:/layout/activity_main.xml"
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
         "merged": "com.example.pinyin.app-merged_res-31:/mipmap-hdpi_ic_launcher.png.flat",
         "source": "com.example.pinyin.app-main-33:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.pinyin.app-merged_res-31:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.pinyin.app-main-33:/xml/data_extraction_rules.xml"
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
         "merged": "com.example.pinyin.app-merged_res-31:/mipmap-xhdpi_ic_launcher.png.flat",
@@ -32,16 +36,52 @@
         "source": "com.example.pinyin.app-main-33:/mipmap-mdpi/ic_launcher_round.png"
     },
     {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
         "merged": "com.example.pinyin.app-merged_res-31:/mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "com.example.pinyin.app-main-33:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
         "merged": "com.example.pinyin.app-merged_res-31:/mipmap-mdpi_ic_launcher.png.flat",
         "source": "com.example.pinyin.app-main-33:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.pinyin.app-merged_res-31:/xml_backup_rules.xml.flat",
-        "source": "com.example.pinyin.app-main-33:/xml/backup_rules.xml"
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/xml_backup_rules.xml.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/layout_activity_main.xml.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-merged_res-31:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/tomoki/.gradle/daemon/8.2/com.example.pinyin.app-main-33:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
         "merged": "com.example.pinyin.app-merged_res-31:/mipmap-xxxhdpi_ic_launcher.png.flat",
