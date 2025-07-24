@@ -17,7 +17,7 @@ import java.io.IOException
 class MainActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
-    private var pinyinMap: Map<String, String> = emptyMap()
+    private var pinyinMap: Map<String, List<String>> = emptyMap()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +40,22 @@ class MainActivity : AppCompatActivity() {
             val jsonString = String(buffer, Charsets.UTF_8)
             val jsonObject = JSONObject(jsonString)
             
-            pinyinMap = mutableMapOf<String, String>().apply {
+            pinyinMap = mutableMapOf<String, List<String>>().apply {
                 val keys = jsonObject.keys()
                 while (keys.hasNext()) {
                     val key = keys.next()
-                    put(key, jsonObject.getString(key))
+                    val value = jsonObject.get(key)
+                    when (value) {
+                        is String -> put(key, listOf(value))
+                        is org.json.JSONArray -> {
+                            val list = mutableListOf<String>()
+                            for (i in 0 until value.length()) {
+                                list.add(value.getString(i))
+                            }
+                            put(key, list)
+                        }
+                        else -> put(key, listOf(value.toString()))
+                    }
                 }
             }
             
@@ -88,14 +99,20 @@ class MainActivity : AppCompatActivity() {
         val showTones = binding.radioTonalSigns.isChecked
         if (input.isBlank()) {
             binding.resultText.text = ""
+            binding.detailText.visibility = android.view.View.GONE
             return
         }
         binding.resultText.text = "Converting..."
+        binding.detailText.visibility = android.view.View.GONE
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val pinyin = convertToPinyin(input, showTones)
+                val (pinyin, details) = convertToPinyinWithDetails(input, showTones)
                 launch(Dispatchers.Main) {
                     binding.resultText.text = pinyin
+                    if (details.isNotEmpty()) {
+                        binding.detailText.text = details
+                        binding.detailText.visibility = android.view.View.VISIBLE
+                    }
                 }
             } catch (e: Exception) {
                 launch(Dispatchers.Main) {
@@ -105,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun convertToPinyin(text: String, withTone: Boolean): String {
+    private fun convertToPinyinWithDetails(text: String, withTone: Boolean): Pair<String, String> {
         val toneMap = mapOf(
             'ā' to Pair('a', '1'), 'á' to Pair('a', '2'), 'ǎ' to Pair('a', '3'), 'à' to Pair('a', '4'),
             'ē' to Pair('e', '1'), 'é' to Pair('e', '2'), 'ě' to Pair('e', '3'), 'è' to Pair('e', '4'),
@@ -116,32 +133,85 @@ class MainActivity : AppCompatActivity() {
         )
 
         val result = StringBuilder()
-        for (char in text) {
-            val pinyin = pinyinMap[char.toString()]
-            if (pinyin != null) {
-                if (withTone) {
-                    result.append(pinyin)
-                } else {
-                    // Find the tone-marked vowel and replace it, then append the number at the end
-                    var converted: String = pinyin
-                    var toneNumber: Char? = null
-                    for ((toneChar, pair) in toneMap) {
-                        if (converted.contains(toneChar)) {
-                            converted = converted.replace(toneChar.toString(), pair.first.toString())
-                            toneNumber = pair.second
-                            break
+        val details = StringBuilder()
+        var i = 0
+        while (i < text.length) {
+            // Try to match multi-character words first (like "银行")
+            var matched = false
+            for (wordLength in 2 downTo 1) {
+                if (i + wordLength <= text.length) {
+                    val word = text.substring(i, i + wordLength)
+                    val pinyinList = pinyinMap[word]
+                    if (pinyinList != null && pinyinList.isNotEmpty()) {
+                        val pinyin = pinyinList[0] // Use the first pronunciation for now
+                        if (withTone) {
+                            result.append(pinyin)
+                        } else {
+                            // Convert tone marks to numbers
+                            var converted: String = pinyin
+                            var toneNumber: Char? = null
+                            for ((toneChar, pair) in toneMap) {
+                                if (converted.contains(toneChar)) {
+                                    converted = converted.replace(toneChar.toString(), pair.first.toString())
+                                    toneNumber = pair.second
+                                    break
+                                }
+                            }
+                            if (toneNumber != null) {
+                                converted += toneNumber
+                            }
+                            result.append(converted)
                         }
+                        result.append(" ")
+                        
+                        // Add details if there are multiple pronunciations
+                        if (pinyinList.size > 1) {
+                            details.append("$word: ${pinyinList.joinToString(", ")}\n")
+                        }
+                        
+                        i += wordLength
+                        matched = true
+                        break
                     }
-                    if (toneNumber != null) {
-                        converted += toneNumber
-                    }
-                    result.append(converted)
                 }
-            } else {
-                result.append(char)
             }
-            result.append(" ")
+            
+            // If no multi-character match, try single character
+            if (!matched) {
+                val char = text[i].toString()
+                val pinyinList = pinyinMap[char]
+                if (pinyinList != null && pinyinList.isNotEmpty()) {
+                    val pinyin = pinyinList[0] // Use the first pronunciation for now
+                    if (withTone) {
+                        result.append(pinyin)
+                    } else {
+                        // Convert tone marks to numbers
+                        var converted: String = pinyin
+                        var toneNumber: Char? = null
+                        for ((toneChar, pair) in toneMap) {
+                            if (converted.contains(toneChar)) {
+                                converted = converted.replace(toneChar.toString(), pair.first.toString())
+                                toneNumber = pair.second
+                                break
+                            }
+                        }
+                        if (toneNumber != null) {
+                            converted += toneNumber
+                        }
+                        result.append(converted)
+                    }
+                    
+                    // Add details if there are multiple pronunciations
+                    if (pinyinList.size > 1) {
+                        details.append("$char: ${pinyinList.joinToString(", ")}\n")
+                    }
+                } else {
+                    result.append(char)
+                }
+                result.append(" ")
+                i++
+            }
         }
-        return result.toString().trim()
+        return Pair(result.toString().trim(), details.toString().trim())
     }
 }

@@ -19,6 +19,7 @@ color primary_text
 color secondary_text
 color white
 id chineseInput
+id detailText
 id inputLayout
 id radioTonalNumbers
 id radioTonalSigns
@@ -51,8 +52,10 @@ string app_description_zh
 string app_name
 string app_title
 string conversion_error
+string enhanced_features
 string enter_characters_to_convert
 string enter_chinese_characters
+string multiple_readings
 string no_characters_entered
 string result
 string tonal_format

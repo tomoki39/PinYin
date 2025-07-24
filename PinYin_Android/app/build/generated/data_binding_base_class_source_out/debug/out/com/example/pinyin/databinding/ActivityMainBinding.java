@@ -28,6 +28,9 @@ public final class ActivityMainBinding implements ViewBinding {
   public final TextInputEditText chineseInput;
 
   @NonNull
+  public final TextView detailText;
+
+  @NonNull
   public final TextInputLayout inputLayout;
 
   @NonNull
@@ -49,12 +52,14 @@ public final class ActivityMainBinding implements ViewBinding {
   public final RadioGroup toneRadioGroup;
 
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
-      @NonNull TextInputEditText chineseInput, @NonNull TextInputLayout inputLayout,
-      @NonNull RadioButton radioTonalNumbers, @NonNull RadioButton radioTonalSigns,
-      @NonNull CardView resultCard, @NonNull TextView resultText, @NonNull TextView titleText,
+      @NonNull TextInputEditText chineseInput, @NonNull TextView detailText,
+      @NonNull TextInputLayout inputLayout, @NonNull RadioButton radioTonalNumbers,
+      @NonNull RadioButton radioTonalSigns, @NonNull CardView resultCard,
+      @NonNull TextView resultText, @NonNull TextView titleText,
       @NonNull RadioGroup toneRadioGroup) {
     this.rootView = rootView;
     this.chineseInput = chineseInput;
+    this.detailText = detailText;
     this.inputLayout = inputLayout;
     this.radioTonalNumbers = radioTonalNumbers;
     this.radioTonalSigns = radioTonalSigns;
@@ -94,6 +99,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.chineseInput;
       TextInputEditText chineseInput = ViewBindings.findChildViewById(rootView, id);
       if (chineseInput == null) {
+        break missingId;
+      }
+
+      id = R.id.detailText;
+      TextView detailText = ViewBindings.findChildViewById(rootView, id);
+      if (detailText == null) {
         break missingId;
       }
 
@@ -139,8 +150,9 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, chineseInput, inputLayout,
-          radioTonalNumbers, radioTonalSigns, resultCard, resultText, titleText, toneRadioGroup);
+      return new ActivityMainBinding((ConstraintLayout) rootView, chineseInput, detailText,
+          inputLayout, radioTonalNumbers, radioTonalSigns, resultCard, resultText, titleText,
+          toneRadioGroup);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

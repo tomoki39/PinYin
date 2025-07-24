@@ -40,8 +40,10 @@
     <string name="app_name">PinYin</string>
     <string name="app_title">中文转拼音</string>
     <string name="conversion_error">转换时出现错误</string>
+    <string name="enhanced_features">增强功能：支持多种读音和连读变化</string>
     <string name="enter_characters_to_convert">请输入中文字符进行转换</string>
     <string name="enter_chinese_characters">输入中文字符</string>
+    <string name="multiple_readings">多种读音</string>
     <string name="no_characters_entered">请输入中文字符</string>
     <string name="result">结果</string>
     <string name="tonal_format">声调格式：</string>
