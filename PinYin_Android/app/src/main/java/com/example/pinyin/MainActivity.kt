@@ -147,26 +147,22 @@ class MainActivity : AppCompatActivity() {
                         if (withTone) {
                             result.append(pinyin)
                         } else {
-                            // Convert tone marks to numbers
-                            var converted: String = pinyin
-                            var toneNumber: Char? = null
-                            for ((toneChar, pair) in toneMap) {
-                                if (converted.contains(toneChar)) {
-                                    converted = converted.replace(toneChar.toString(), pair.first.toString())
-                                    toneNumber = pair.second
-                                    break
-                                }
-                            }
-                            if (toneNumber != null) {
-                                converted += toneNumber
-                            }
+                            // Convert tone marks to numbers (多音節対応)
+                            val converted = convertPinyinToNumber(pinyin, toneMap)
                             result.append(converted)
                         }
                         result.append(" ")
                         
                         // Add details if there are multiple pronunciations
                         if (pinyinList.size > 1) {
-                            details.append("$word: ${pinyinList.joinToString(", ")}\n")
+                            val detailReadings = pinyinList.map { pinyin ->
+                                if (withTone) {
+                                    pinyin
+                                } else {
+                                    convertPinyinToNumber(pinyin, toneMap)
+                                }
+                            }
+                            details.append("$word: ${detailReadings.joinToString(", ")}\n")
                         }
                         
                         i += wordLength
@@ -185,25 +181,21 @@ class MainActivity : AppCompatActivity() {
                     if (withTone) {
                         result.append(pinyin)
                     } else {
-                        // Convert tone marks to numbers
-                        var converted: String = pinyin
-                        var toneNumber: Char? = null
-                        for ((toneChar, pair) in toneMap) {
-                            if (converted.contains(toneChar)) {
-                                converted = converted.replace(toneChar.toString(), pair.first.toString())
-                                toneNumber = pair.second
-                                break
-                            }
-                        }
-                        if (toneNumber != null) {
-                            converted += toneNumber
-                        }
+                        // Convert tone marks to numbers (多音節対応)
+                        val converted = convertPinyinToNumber(pinyin, toneMap)
                         result.append(converted)
                     }
                     
                     // Add details if there are multiple pronunciations
                     if (pinyinList.size > 1) {
-                        details.append("$char: ${pinyinList.joinToString(", ")}\n")
+                        val detailReadings = pinyinList.map { pinyin ->
+                            if (withTone) {
+                                pinyin
+                            } else {
+                                convertPinyinToNumber(pinyin, toneMap)
+                            }
+                        }
+                        details.append("$char: ${detailReadings.joinToString(", ")}\n")
                     }
                 } else {
                     result.append(char)
@@ -213,5 +205,34 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return Pair(result.toString().trim(), details.toString().trim())
+    }
+
+    // --- 最終修正版: 多音節語のみ分割、単音節語はそのままtone number変換 ---
+    private fun convertPinyinToNumber(pinyin: String, toneMap: Map<Char, Pair<Char, Char>>): String {
+        val toneVowel = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜaeiouü"
+        // 2音節以上（5文字以上、スペース・ハイフンなし）の場合のみ分割
+        val needsSplit = pinyin.length > 4 && !pinyin.contains(" ") && !pinyin.contains("-")
+        val syllables = if (needsSplit) {
+            val syllableRegex = Regex("[bpmfdtnlgkhjqxrzcsywzhchsh]?[a-züÜ]+[${toneVowel}](ng|n)?", RegexOption.IGNORE_CASE)
+            val found = syllableRegex.findAll(pinyin).map { it.value }.filter { it.isNotBlank() }.toList()
+            if (found.isNotEmpty()) found else listOf(pinyin)
+        } else {
+            listOf(pinyin)
+        }
+        return syllables.joinToString(" ") { syllable ->
+            var converted = syllable
+            var toneNumber: Char? = null
+            for ((toneChar, pair) in toneMap) {
+                if (converted.contains(toneChar)) {
+                    converted = converted.replace(toneChar.toString(), pair.first.toString())
+                    toneNumber = pair.second
+                    break
+                }
+            }
+            if (toneNumber != null) {
+                converted += toneNumber
+            }
+            converted
+        }
     }
 }
