@@ -10,3 +10,4 @@
 "conversion_error" = "转换时出现错误";
 "loading_pinyin_data" = "正在加载拼音数据...";
 "pinyin" = "拼音：";
+"details" = "详细（多音字）";

@@ -3,7 +3,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var chineseText = ""
     @State private var pinyinText = ""
-    @State private var pinyinMap: [String: String] = [:]
+    @State private var pinyinMap: [String: [String]] = [:]
+    @State private var detailText: String = ""
     @State private var showTones = true
     @State private var loading = true
     @State private var error: String? = nil
@@ -66,7 +67,7 @@ struct ContentView: View {
                 } else if let error = error {
                     ErrorView(message: error)
                 } else if !pinyinText.isEmpty {
-                    ResultCard(pinyinText: pinyinText)
+                    ResultCard(pinyinText: pinyinText, detailText: detailText)
                 } else if !chineseText.isEmpty {
                     EmptyResultView()
                 }
@@ -89,9 +90,17 @@ struct ContentView: View {
             do {
                 if let url = Bundle.main.url(forResource: "pinyin_map", withExtension: "json") ?? Bundle.main.url(forResource: "pinyin_map", withExtension: "json", subdirectory: "Resources") {
                     let data = try Data(contentsOf: url)
-                    if let dict = try JSONSerialization.jsonObject(with: data) as? [String: String] {
+                    if let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                        var map: [String: [String]] = [:]
+                        for (k, v) in dict {
+                            if let arr = v as? [String] {
+                                map[k] = arr
+                            } else if let s = v as? String {
+                                map[k] = [s]
+                            }
+                        }
                         DispatchQueue.main.async {
-                            self.pinyinMap = dict
+                            self.pinyinMap = map
                             self.loading = false
                             self.convertToPinyin(self.chineseText)
                         }
@@ -127,31 +136,82 @@ struct ContentView: View {
             "ǖ": ("v", "1"), "ǘ": ("v", "2"), "ǚ": ("v", "3"), "ǜ": ("v", "4")
         ]
         var result = ""
-        for char in text {
-            let key = String(char)
-            if let pinyin = pinyinMap[key] {
-                if showTones {
-                    result += pinyin + " "
-                } else {
-                    var converted = pinyin
-                    var toneNumber: Character? = nil
-                    for (toneChar, (plain, num)) in toneMap {
-                        if converted.contains(toneChar) {
-                            converted = converted.replacingOccurrences(of: String(toneChar), with: String(plain))
-                            toneNumber = num
-                            break
+        var details = ""
+        var i = 0
+        let chars = Array(text)
+        while i < chars.count {
+            var matched = false
+            for wordLen in stride(from: 2, through: 1, by: -1) {
+                if i + wordLen <= chars.count {
+                    let word = String(chars[i..<(i+wordLen)])
+                    if let pinyinList = pinyinMap[word], !pinyinList.isEmpty {
+                        let pinyin = pinyinList[0]
+                        if showTones {
+                            result += pinyin + " "
+                        } else {
+                            result += convertPinyinToNumber(pinyin, toneMap: toneMap) + " "
                         }
+                        if pinyinList.count > 1 {
+                            let detailReadings = pinyinList.map { showTones ? $0 : convertPinyinToNumber($0, toneMap: toneMap) }
+                            details += "\(word): \(detailReadings.joined(separator: ", "))\n"
+                        }
+                        i += wordLen
+                        matched = true
+                        break
                     }
-                    if let toneNumber = toneNumber {
-                        converted += String(toneNumber)
-                    }
-                    result += converted + " "
                 }
-            } else {
-                result += key + " "
+            }
+            if !matched {
+                let char = String(chars[i])
+                if let pinyinList = pinyinMap[char], !pinyinList.isEmpty {
+                    let pinyin = pinyinList[0]
+                    if showTones {
+                        result += pinyin + " "
+                    } else {
+                        result += convertPinyinToNumber(pinyin, toneMap: toneMap) + " "
+                    }
+                    if pinyinList.count > 1 {
+                        let detailReadings = pinyinList.map { showTones ? $0 : convertPinyinToNumber($0, toneMap: toneMap) }
+                        details += "\(char): \(detailReadings.joined(separator: ", "))\n"
+                    }
+                } else {
+                    result += char + " "
+                }
+                i += 1
             }
         }
         pinyinText = result.trimmingCharacters(in: .whitespaces)
+        detailText = details.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    private func convertPinyinToNumber(_ pinyin: String, toneMap: [Character: (Character, Character)]) -> String {
+        let toneVowel = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜaeiouü"
+        let needsSplit = pinyin.count > 4 && !pinyin.contains(" ") && !pinyin.contains("-")
+        var syllables: [String]
+        if needsSplit {
+            let regex = try! NSRegularExpression(pattern: "[bpmfdtnlgkhjqxrzcsywzhchsh]?[a-züÜ]+[\(toneVowel)](ng|n)?", options: .caseInsensitive)
+            let nsrange = NSRange(pinyin.startIndex..<pinyin.endIndex, in: pinyin)
+            let matches = regex.matches(in: pinyin, options: [], range: nsrange)
+            syllables = matches.map { String(pinyin[Range($0.range, in: pinyin)!]) }
+            if syllables.isEmpty { syllables = [pinyin] }
+        } else {
+            syllables = [pinyin]
+        }
+        return syllables.map { syll in
+            var converted = syll
+            var toneNumber: Character? = nil
+            for (toneChar, (plain, num)) in toneMap {
+                if converted.contains(toneChar) {
+                    converted = converted.replacingOccurrences(of: String(toneChar), with: String(plain))
+                    toneNumber = num
+                    break
+                }
+            }
+            if let toneNumber = toneNumber {
+                converted += String(toneNumber)
+            }
+            return converted
+        }.joined(separator: " ")
     }
 }
 
@@ -173,6 +233,7 @@ struct CustomTextFieldStyle: TextFieldStyle {
 // Result Card View
 struct ResultCard: View {
     let pinyinText: String
+    let detailText: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -195,6 +256,26 @@ struct ResultCard: View {
                         .stroke(Color("AppPrimaryColor").opacity(0.2), lineWidth: 1)
                 )
                 .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+            
+            if !detailText.isEmpty {
+                Text("details")
+                    .font(.headline)
+                    .foregroundColor(Color("AppPrimaryColor"))
+                    .padding(.top, 8)
+                
+                Text(detailText)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color("CardBackground"))
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color("AppPrimaryColor").opacity(0.2), lineWidth: 1)
+                    )
+                    .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+            }
         }
         .padding(.horizontal)
     }

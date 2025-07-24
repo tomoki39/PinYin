@@ -10,3 +10,4 @@
 "conversion_error" = "変換中にエラーが発生しました";
 "loading_pinyin_data" = "ピンインデータを読み込み中...";
 "pinyin" = "ピンイン：";
+"details" = "詳細（多音読み）";
