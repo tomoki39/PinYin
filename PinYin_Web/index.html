@@ -198,6 +198,31 @@
         .install-instructions ol {
             color: #856404;
             font-size: 12px;
+        }
+        
+        /* Responsive design for tone options */
+        @media (max-width: 600px) {
+            .tone-options {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            
+            .tone-options label {
+                min-width: 0 !important;
+                flex: none !important;
+            }
+        }
+        
+        /* Custom radio button styling */
+        input[type="radio"] {
+            margin: 0;
+            padding: 0;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        .install-instructions ol {
             padding-left: 20px;
         }
         
@@ -289,9 +314,9 @@
             <!-- 声調表記切り替えラジオボタン追加 -->
             <div class="input-group" style="margin-bottom: 10px;">
                 <label data-en="Tone format:" data-ja="声調形式：" data-zh="声调格式：" data-ko="성조 형식:" data-es="Formato de tono:" data-fr="Format de ton:" data-de="Tonformat:" data-it="Formato tonale:" data-pt="Formato de tom:" data-ru="Формат тона:" data-ar="تنسيق النغمة:" data-hi="स्वर प्रारूप:" data-tr="Ton formatı:" data-vi="Định dạng thanh điệu:" data-th="รูปแบบเสียง:" data-pl="Format tonu:" data-nl="Toonformaat:" data-sv="Tonformat:" data-da="Toneformat:" data-fi="Sävelmuoto:">Tone format:</label>
-                <div style="display: flex; gap: 16px; margin-top: 4px;">
-                    <label style="display: flex; align-items: center; gap: 2px; white-space: nowrap;"><input type="radio" name="toneType" value="sign" checked> <span data-en="Tonal signs (ā, á, ǎ, à)" data-ja="声調符号 (ā, á, ǎ, à)" data-zh="声调符号 (ā, á, ǎ, à)" data-ko="성조 기호 (ā, á, ǎ, à)" data-es="Signos tonales (ā, á, ǎ, à)" data-fr="Signes tonaux (ā, á, ǎ, à)" data-de="Tonzeichen (ā, á, ǎ, à)" data-it="Segni tonali (ā, á, ǎ, à)" data-pt="Sinais tonais (ā, á, ǎ, à)" data-ru="Тональные знаки (ā, á, ǎ, à)" data-ar="علامات النغمة (ā, á, ǎ, à)" data-hi="स्वर चिह्न (ā, á, ǎ, à)" data-tr="Ton işaretleri (ā, á, ǎ, à)" data-vi="Dấu thanh điệu (ā, á, ǎ, à)" data-th="เครื่องหมายเสียง (ā, á, ǎ, à)" data-pl="Znaki tonalne (ā, á, ǎ, à)" data-nl="Toontekens (ā, á, ǎ, à)" data-sv="Tonala tecken (ā, á, ǎ, à)" data-da="Tonale tegn (ā, á, ǎ, à)" data-fi="Sävelmerkit (ā, á, ǎ, à)">Tonal signs (ā, á, ǎ, à)</span></label>
-                    <label style="display: flex; align-items: center; gap: 2px; white-space: nowrap;"><input type="radio" name="toneType" value="number"> <span data-en="Tonal numbers (a1, a2, a3, a4)" data-ja="声調数字 (a1, a2, a3, a4)" data-zh="声调数字 (a1, a2, a3, a4)" data-ko="성조 숫자 (a1, a2, a3, a4)" data-es="Números tonales (a1, a2, a3, a4)" data-fr="Nombres tonaux (a1, a2, a3, a4)" data-de="Tonzahlen (a1, a2, a3, a4)" data-it="Numeri tonali (a1, a2, a3, a4)" data-pt="Números tonais (a1, a2, a3, a4)" data-ru="Тональные числа (a1, a2, a3, a4)" data-ar="أرقام النغمة (a1, a2, a3, a4)" data-hi="स्वर संख्याएं (a1, a2, a3, a4)" data-tr="Ton numaraları (a1, a2, a3, a4)" data-vi="Số thanh điệu (a1, a2, a3, a4)" data-th="ตัวเลขเสียง (a1, a2, a3, a4)" data-pl="Liczby tonalne (a1, a2, a3, a4)" data-nl="Toonnummers (a1, a2, a3, a4)" data-sv="Tonala siffror (a1, a2, a3, a4)" data-da="Tonale tal (a1, a2, a3, a4)" data-fi="Sävelnumerot (a1, a2, a3, a4)">Tonal numbers (a1, a2, a3, a4)</span></label>
+                <div class="tone-options" style="display: flex; gap: 16px; margin-top: 4px; flex-wrap: wrap; justify-content: flex-start;">
+                    <label style="display: flex; align-items: center; gap: 2px; min-width: 0; flex: 0 1 auto; margin: 0; padding: 0;"><input type="radio" name="toneType" value="sign" checked> <span data-en="Tonal signs (ā, á, ǎ, à)" data-ja="声調符号 (ā, á, ǎ, à)" data-zh="声调符号 (ā, á, ǎ, à)" data-ko="성조 기호 (ā, á, ǎ, à)" data-es="Signos tonales (ā, á, ǎ, à)" data-fr="Signes tonaux (ā, á, ǎ, à)" data-de="Tonzeichen (ā, á, ǎ, à)" data-it="Segni tonali (ā, á, ǎ, à)" data-pt="Sinais tonais (ā, á, ǎ, à)" data-ru="Тональные знаки (ā, á, ǎ, à)" data-ar="علامات النغمة (ā, á, ǎ, à)" data-hi="स्वर चिह्न (ā, á, ǎ, à)" data-tr="Ton işaretleri (ā, á, ǎ, à)" data-vi="Dấu thanh điệu (ā, á, ǎ, à)" data-th="เครื่องหมายเสียง (ā, á, ǎ, à)" data-pl="Znaki tonalne (ā, á, ǎ, à)" data-nl="Toontekens (ā, á, ǎ, à)" data-sv="Tonala tecken (ā, á, ǎ, à)" data-da="Tonale tegn (ā, á, ǎ, à)" data-fi="Sävelmerkit (ā, á, ǎ, à)">Tonal signs (ā, á, ǎ, à)</span></label>
+                    <label style="display: flex; align-items: center; gap: 2px; min-width: 0; flex: 0 1 auto; margin: 0; padding: 0;"><input type="radio" name="toneType" value="number"> <span data-en="Tonal numbers (a1, a2, a3, a4)" data-ja="声調数字 (a1, a2, a3, a4)" data-zh="声调数字 (a1, a2, a3, a4)" data-ko="성조 숫자 (a1, a2, a3, a4)" data-es="Números tonales (a1, a2, a3, a4)" data-fr="Nombres tonaux (a1, a2, a3, a4)" data-de="Tonzahlen (a1, a2, a3, a4)" data-it="Numeri tonali (a1, a2, a3, a4)" data-pt="Números tonais (a1, a2, a3, a4)" data-ru="Тональные числа (a1, a2, a3, a4)" data-ar="أرقام النغمة (a1, a2, a3, a4)" data-hi="स्वर संख्याएं (a1, a2, a3, a4)" data-tr="Ton numaraları (a1, a2, a3, a4)" data-vi="Số thanh điệu (a1, a2, a3, a4)" data-th="ตัวเลขเสียง (a1, a2, a3, a4)" data-pl="Liczby tonalne (a1, a2, a3, a4)" data-nl="Toonnummers (a1, a2, a3, a4)" data-sv="Tonala siffror (a1, a2, a3, a4)" data-da="Tonale tal (a1, a2, a3, a4)" data-fi="Sävelnumerot (a1, a2, a3, a4)">Tonal numbers (a1, a2, a3, a4)</span></label>
                 </div>
             </div>
             
