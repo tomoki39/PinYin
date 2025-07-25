@@ -426,12 +426,28 @@
 
         // Apply translations to UI
         function applyTranslations(translations) {
+            // Apply translations from JSON file
             if (translations.app_title) {
                 document.querySelector('.app-title').textContent = translations.app_title;
                 document.title = translations.app_title;
             }
+            if (translations.subtitle) {
+                document.querySelector('.subtitle').textContent = translations.subtitle;
+            }
             if (translations.input_label) {
                 document.querySelector('label[for="chineseInput"]').textContent = translations.input_label;
+            }
+            if (translations.placeholder) {
+                document.querySelector('#chineseInput').placeholder = translations.placeholder;
+            }
+            if (translations.tone_format) {
+                document.querySelector('label[data-en="Tone format:"]').textContent = translations.tone_format;
+            }
+            if (translations.tonal_signs) {
+                document.querySelector('span[data-en="Tonal signs (ā, á, ǎ, à)"]').textContent = translations.tonal_signs;
+            }
+            if (translations.tonal_numbers) {
+                document.querySelector('span[data-en="Tonal numbers (a1, a2, a3, a4)"]').textContent = translations.tonal_numbers;
             }
             if (translations.convert_btn) {
                 document.querySelector('.convert-btn').textContent = translations.convert_btn;
@@ -440,10 +456,35 @@
                 document.querySelector('.clear-btn').textContent = translations.clear_btn;
             }
             if (translations.result_label) {
-                // 例: 結果欄のラベルがあれば反映
-                // document.querySelector('.result-label').textContent = translations.result_label;
+                document.querySelector('#result').textContent = translations.result_label;
             }
-            // 必要に応じて他の要素も追加
+            if (translations.app_description) {
+                document.querySelector('p[data-en="This is a Progressive Web App that works like a native app!"]').textContent = translations.app_description;
+            }
+            if (translations.install_title) {
+                document.querySelector('h4[data-en="📲 Install as Native App:"]').textContent = translations.install_title;
+            }
+            if (translations.install_step1) {
+                document.querySelector('li[data-en="Tap the Share button (📤) in Safari"]').textContent = translations.install_step1;
+            }
+            if (translations.install_step2) {
+                document.querySelector('li[data-en="Select \'Add to Home Screen\'"]').textContent = translations.install_step2;
+            }
+            if (translations.install_step3) {
+                document.querySelector('li[data-en="Tap \'Add\' to install"]').textContent = translations.install_step3;
+            }
+            if (translations.install_step4) {
+                document.querySelector('li[data-en="The PinYin icon will appear on your home screen!"]').textContent = translations.install_step4;
+            }
+            
+            // Apply translations from data-* attributes
+            const elementsWithData = document.querySelectorAll('[data-' + currentLanguage + ']');
+            elementsWithData.forEach(element => {
+                const translation = element.getAttribute('data-' + currentLanguage);
+                if (translation) {
+                    element.textContent = translation;
+                }
+            });
         }
 
         // 言語決定とUI反映

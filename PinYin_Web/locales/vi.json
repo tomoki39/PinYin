@@ -1,8 +1,19 @@
 {
   "app_title": "PinYin",
   "input_label": "Văn bản tiếng Trung:",
-  "convert_btn": "Chuyển đổi",
+  "convert_btn": "Chuyển đổi sang Pinyin",
   "clear_btn": "Xóa",
-  "result_label": "Pinyin",
-  "details": "Chi tiết"
+  "result_label": "Pinyin sẽ xuất hiện ở đây...",
+  "details": "Chi tiết",
+  "subtitle": "Bộ chuyển đổi tiếng Trung sang Pinyin",
+  "tone_format": "Định dạng thanh điệu:",
+  "tonal_signs": "Dấu thanh điệu (ā, á, ǎ, à)",
+  "tonal_numbers": "Số thanh điệu (a1, a2, a3, a4)",
+  "placeholder": "Nhập ký tự tiếng Trung tại đây...",
+  "app_description": "Đây là ứng dụng web tiến bộ hoạt động như ứng dụng gốc!",
+  "install_title": "📲 Cài đặt như ứng dụng gốc:",
+  "install_step1": "Nhấn nút Chia sẻ (📤) trong trình duyệt của bạn",
+  "install_step2": "Chọn 'Thêm vào màn hình chính'",
+  "install_step3": "Nhấn 'Thêm' để cài đặt",
+  "install_step4": "Biểu tượng PinYin sẽ xuất hiện trên màn hình chính của bạn!"
 } 
