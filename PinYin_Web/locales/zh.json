@@ -3,5 +3,6 @@
   "input_label": "中文：",
   "convert_btn": "转换",
   "clear_btn": "清除",
-  "result_label": "拼音"
+  "result_label": "拼音",
+  "details": "详细"
 } 

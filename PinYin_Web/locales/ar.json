@@ -1,7 +1,8 @@
 {
-  "app_title": "بينين",
+  "app_title": "بينيين",
   "input_label": "النص الصيني:",
   "convert_btn": "تحويل",
   "clear_btn": "مسح",
-  "result_label": "بينين"
+  "result_label": "بينيين",
+  "details": "تفاصيل"
 } 

@@ -1,7 +1,8 @@
 {
   "app_title": "Пиньинь",
   "input_label": "Китайский текст:",
-  "convert_btn": "Преобразовать",
+  "convert_btn": "Конвертировать",
   "clear_btn": "Очистить",
-  "result_label": "Пиньинь"
+  "result_label": "Пиньинь",
+  "details": "Подробности"
 } 

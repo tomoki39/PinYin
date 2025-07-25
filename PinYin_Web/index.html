@@ -303,6 +303,7 @@
         
         <div class="result-section">
             <div id="result" class="result-text" data-en="Pinyin will appear here..." data-ja="ピンインがここに表示されます..." data-zh="拼音将在此显示..." data-ko="병음이 여기에 나타날 것입니다..." data-es="El Pinyin aparecerá aquí..." data-fr="Le Pinyin apparaîtra ici..." data-de="Pinyin wird hier erscheinen..." data-it="Il Pinyin apparirà qui..." data-pt="O Pinyin aparecerá aqui..." data-ru="Пиньинь появится здесь..." data-ar="سيظهر البينيين هنا..." data-hi="पिनयिन यहां दिखाई देगा..." data-tr="Pinyin burada görünecek..." data-vi="Pinyin sẽ xuất hiện ở đây..." data-th="พินอินจะปรากฏที่นี่..." data-pl="Pinyin pojawi się tutaj..." data-nl="Pinyin verschijnt hier..." data-sv="Pinyin kommer att visas här..." data-da="Pinyin vil vises her..." data-fi="Pinyin näkyy täällä...">Pinyin will appear here...</div>
+            <div id="details" style="display: none; margin-top: 10px; padding: 10px; background-color: #f8f9fa; border-left: 3px solid #007bff; font-size: 0.9em; color: #666;"></div>
         </div>
         
         <div class="instructions">
@@ -439,42 +440,118 @@
             }
         }
         
-        // Convert Chinese to Pinyin
-        function convertToPinyin() {
-            const input = document.getElementById('chineseInput').value.trim();
-            const resultDiv = document.getElementById('result');
-            // ラジオボタンの値取得
-            const toneType = document.querySelector('input[name="toneType"]:checked').value;
-            console.log('pinyinMap keys:', Object.keys(pinyinMap).slice(0, 10), '... total:', Object.keys(pinyinMap).length);
-            if (!input) {
-                const noInputText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'Please enter some Chinese text...';
-                resultDiv.textContent = noInputText;
-                return;
-            }
-            const loadingText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'Converting...';
-            resultDiv.innerHTML = '<div class="loading">' + loadingText + '</div>';
-            setTimeout(() => {
-                let result = '';
-                for (let char of input) {
-                    if (pinyinMap[char]) {
-                        let pinyin = pinyinMap[char];
-                        if (toneType === 'number') {
-                            pinyin = pinyinWithNumber(pinyin);
+        // Convert Chinese to Pinyin with details
+        function convertToPinyinWithDetails(input) {
+            let result = '';
+            let detailText = '';
+            
+            // First, try to match multi-character words
+            let i = 0;
+            while (i < input.length) {
+                let matched = false;
+                
+                // Try to match multi-character words (up to 4 characters)
+                for (let len = 4; len >= 2; len--) {
+                    if (i + len <= input.length) {
+                        const word = input.substring(i, i + len);
+                        if (pinyinMap[word]) {
+                            const readings = pinyinMap[word];
+                            if (Array.isArray(readings)) {
+                                console.log(`Multi-char word "${word}":`, readings);
+                                result += readings[0] + ' ';
+                                if (readings.length > 1) {
+                                    detailText += `${word}: ${readings.join(', ')} `;
+                                }
+                            } else {
+                                result += readings + ' ';
+                            }
+                            i += len;
+                            matched = true;
+                            break;
                         }
-                        result += pinyin + ' ';
+                    }
+                }
+                
+                // If no multi-character word found, try single character
+                if (!matched) {
+                    const char = input[i];
+                    if (pinyinMap[char]) {
+                        const readings = pinyinMap[char];
+                        if (Array.isArray(readings)) {
+                            console.log(`Single char "${char}":`, readings);
+                            result += readings[0] + ' ';
+                            if (readings.length > 1) {
+                                detailText += `${char}: ${readings.join(', ')} `;
+                            }
+                        } else {
+                            result += readings + ' ';
+                        }
                     } else if (char.match(/[\u4e00-\u9fff]/)) {
                         result += char + ' ';
                     } else {
                         result += char;
                     }
+                    i++;
                 }
-                console.log('convertToPinyin result:', result.trim());
+            }
+            
+            console.log('Final result:', result);
+            console.log('Final detailText:', detailText);
+            return { result: result.trim(), detailText: detailText.trim() };
+        }
+        
+        // Convert Chinese to Pinyin
+        function convertToPinyin() {
+            const input = document.getElementById('chineseInput').value.trim();
+            const resultDiv = document.getElementById('result');
+            const detailsDiv = document.getElementById('details');
+            const toneType = document.querySelector('input[name="toneType"]:checked').value;
+            
+            if (!input) {
+                const noInputText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'Please enter some Chinese text...';
+                resultDiv.textContent = noInputText;
+                detailsDiv.style.display = 'none';
+                return;
+            }
+            
+            const loadingText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'Converting...';
+            resultDiv.innerHTML = '<div class="loading">' + loadingText + '</div>';
+            detailsDiv.style.display = 'none';
+            
+            setTimeout(() => {
+                const { result, detailText } = convertToPinyinWithDetails(input);
+                
+                // Apply tone number conversion if needed
+                let finalResult = result;
+                if (toneType === 'number') {
+                    finalResult = convertPinyinToNumber(result);
+                }
+                
+                // Apply tone number conversion to detail text if needed
+                let finalDetailText = detailText;
+                if (toneType === 'number' && detailText) {
+                    console.log('Converting detail text to numbers:', detailText);
+                    // For detail text, we need to convert each reading individually
+                    // because the format is "char: reading1, reading2"
+                    finalDetailText = convertDetailTextToNumber(detailText);
+                    console.log('Converted detail text:', finalDetailText);
+                }
+                
                 const noChineseText = document.querySelector('#result').getAttribute('data-' + currentLanguage) || 'No Chinese characters found.';
-                resultDiv.textContent = result.trim() || noChineseText;
+                resultDiv.textContent = finalResult || noChineseText;
+                
+                if (finalDetailText) {
+                    detailsDiv.textContent = finalDetailText;
+                    detailsDiv.style.display = 'block';
+                } else {
+                    detailsDiv.style.display = 'none';
+                }
             }, 100);
         }
-        // 声調記号→数字変換関数
-        function pinyinWithNumber(pinyin) {
+        // Convert pinyin with tone marks to tone numbers
+        function convertPinyinToNumber(pinyin) {
+            console.log('convertPinyinToNumber input:', pinyin);
+            
             const toneMap = {
                 'ā': ['a', '1'], 'á': ['a', '2'], 'ǎ': ['a', '3'], 'à': ['a', '4'],
                 'ē': ['e', '1'], 'é': ['e', '2'], 'ě': ['e', '3'], 'è': ['e', '4'],
@@ -483,28 +560,106 @@
                 'ū': ['u', '1'], 'ú': ['u', '2'], 'ǔ': ['u', '3'], 'ù': ['u', '4'],
                 'ǖ': ['v', '1'], 'ǘ': ['v', '2'], 'ǚ': ['v', '3'], 'ǜ': ['v', '4']
             };
+            
+            // If pinyin contains spaces, split by spaces first
+            if (pinyin.includes(" ")) {
+                const syllables = pinyin.split(" ");
+                const result = syllables.map(syllable => {
+                    return convertSingleSyllable(syllable, toneMap);
+                }).join(" ");
+                console.log('convertPinyinToNumber result (space-split):', result);
+                return result;
+            }
+            
+            const toneVowel = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜaeiouü";
+            // Only split for multi-syllable words (length > 4 and no spaces/hyphens)
+            const needsSplit = pinyin.length > 4 && !pinyin.includes(" ") && !pinyin.includes("-");
+            
+            console.log('needsSplit:', needsSplit, 'pinyin length:', pinyin.length);
+            
+            let syllables;
+            if (needsSplit) {
+                const syllableRegex = new RegExp(`[bpmfdtnlgkhjqxrzcsywzhchsh]?[a-züÜ]+[${toneVowel}](ng|n)?`, 'gi');
+                const found = pinyin.match(syllableRegex) || [];
+                syllables = found.length > 0 ? found : [pinyin];
+                console.log('Split syllables:', syllables);
+            } else {
+                syllables = [pinyin];
+                console.log('Single syllable:', syllables);
+            }
+            
+            const result = syllables.map(syllable => {
+                return convertSingleSyllable(syllable, toneMap);
+            }).join(" ");
+            
+            console.log('convertPinyinToNumber result:', result);
+            return result;
+        }
+        
+        // Convert a single syllable from tone marks to tone numbers
+        function convertSingleSyllable(syllable, toneMap) {
+            let converted = syllable;
             let toneNumber = '';
-            let plain = '';
-            for (const [key, [base, num]] of Object.entries(toneMap)) {
-                if (pinyin.includes(key)) {
-                    plain = pinyin.replace(key, base);
+            
+            for (const [toneChar, [base, num]] of Object.entries(toneMap)) {
+                if (converted.includes(toneChar)) {
+                    converted = converted.replace(toneChar, base);
                     toneNumber = num;
                     break;
                 }
             }
-            if (toneNumber) {
-                return plain + toneNumber;
-            } else {
-                return pinyin;
+            
+            const final = toneNumber ? converted + toneNumber : converted;
+            console.log(`Syllable "${syllable}" -> "${final}"`);
+            return final;
+        }
+        
+        // Convert detail text format "char: reading1, reading2" to tone numbers
+        function convertDetailTextToNumber(detailText) {
+            console.log('convertDetailTextToNumber input:', detailText);
+            const toneMap = {
+                'ā': ['a', '1'], 'á': ['a', '2'], 'ǎ': ['a', '3'], 'à': ['a', '4'],
+                'ē': ['e', '1'], 'é': ['e', '2'], 'ě': ['e', '3'], 'è': ['e', '4'],
+                'ī': ['i', '1'], 'í': ['i', '2'], 'ǐ': ['i', '3'], 'ì': ['i', '4'],
+                'ō': ['o', '1'], 'ó': ['o', '2'], 'ǒ': ['o', '3'], 'ò': ['o', '4'],
+                'ū': ['u', '1'], 'ú': ['u', '2'], 'ǔ': ['u', '3'], 'ù': ['u', '4'],
+                'ǖ': ['v', '1'], 'ǘ': ['v', '2'], 'ǚ': ['v', '3'], 'ǜ': ['v', '4']
+            };
+            
+            // Handle the format "char: reading1, reading2"
+            // First, find the colon and split
+            const colonIndex = detailText.indexOf(': ');
+            if (colonIndex !== -1) {
+                const char = detailText.substring(0, colonIndex);
+                const readingsPart = detailText.substring(colonIndex + 2).trim();
+                console.log('Processing char:', char, 'readings part:', readingsPart);
+                
+                const readingList = readingsPart.split(', ');
+                console.log('Reading list:', readingList);
+                
+                const convertedReadings = readingList.map(reading => {
+                    const converted = convertSingleSyllable(reading.trim(), toneMap);
+                    console.log('Converted reading:', reading, '->', converted);
+                    return converted;
+                });
+                
+                const result = `${char}: ${convertedReadings.join(', ')}`;
+                console.log('convertDetailTextToNumber final result:', result);
+                return result;
             }
+            
+            // Fallback: return as is
+            return detailText;
         }
         
         // Clear all inputs and results
         function clearAll() {
             document.getElementById('chineseInput').value = '';
             const resultDiv = document.getElementById('result');
+            const detailsDiv = document.getElementById('details');
             const placeholderText = resultDiv.getAttribute('data-' + currentLanguage) || 'Pinyin will appear here...';
             resultDiv.textContent = placeholderText;
+            detailsDiv.style.display = 'none';
         }
         
         // Handle Enter key in textarea

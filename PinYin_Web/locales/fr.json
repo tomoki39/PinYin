@@ -1,7 +1,8 @@
 {
   "app_title": "PinYin",
-  "input_label": "Texte chinois :",
+  "input_label": "Texte Chinois:",
   "convert_btn": "Convertir",
   "clear_btn": "Effacer",
-  "result_label": "PinYin"
+  "result_label": "Pinyin",
+  "details": "Détails"
 } 

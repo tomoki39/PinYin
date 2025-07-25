@@ -3,5 +3,6 @@
   "input_label": "중국어 텍스트:",
   "convert_btn": "변환",
   "clear_btn": "지우기",
-  "result_label": "병음"
+  "result_label": "병음",
+  "details": "상세"
 } 

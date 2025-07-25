@@ -1,7 +1,8 @@
 {
   "app_title": "पिनयिन",
   "input_label": "चीनी पाठ:",
-  "convert_btn": "रूपांतरित करें",
+  "convert_btn": "बदलें",
   "clear_btn": "साफ़ करें",
-  "result_label": "पिनयिन"
+  "result_label": "पिनयिन",
+  "details": "विवरण"
 } 

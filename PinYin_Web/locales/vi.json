@@ -1,7 +1,8 @@
 {
   "app_title": "PinYin",
-  "input_label": "Văn bản Trung Quốc:",
+  "input_label": "Văn bản tiếng Trung:",
   "convert_btn": "Chuyển đổi",
   "clear_btn": "Xóa",
-  "result_label": "PinYin"
+  "result_label": "Pinyin",
+  "details": "Chi tiết"
 } 
