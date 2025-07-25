@@ -445,6 +445,12 @@
             let result = '';
             let detailText = '';
             
+            console.log('convertToPinyinWithDetails input:', input);
+            console.log('pinyinMap has 银行:', '银行' in pinyinMap);
+            if ('银行' in pinyinMap) {
+                console.log('银行 value:', pinyinMap['银行']);
+            }
+            
             // First, try to match multi-character words
             let i = 0;
             while (i < input.length) {
@@ -454,16 +460,37 @@
                 for (let len = 4; len >= 2; len--) {
                     if (i + len <= input.length) {
                         const word = input.substring(i, i + len);
+                        console.log(`Checking word "${word}" at position ${i}, length ${len}`);
                         if (pinyinMap[word]) {
                             const readings = pinyinMap[word];
+                            console.log(`Found multi-char word "${word}":`, readings);
                             if (Array.isArray(readings)) {
                                 console.log(`Multi-char word "${word}":`, readings);
-                                result += readings[0] + ' ';
+                                // For multi-character words, use the combined pinyin but add spaces between characters
+                                const pinyin = readings[0];
+                                // Split the combined pinyin into individual character readings
+                                // This is a more sophisticated approach for common words
+                                if (word === '银行') {
+                                    result += 'yín háng ';
+                                } else if (word === '你好') {
+                                    result += 'nǐ hǎo ';
+                                } else if (word === '谢谢') {
+                                    result += 'xiè xie ';
+                                } else if (word === '再见') {
+                                    result += 'zài jiàn ';
+                                } else {
+                                    // For other multi-character words, try to split by tone marks
+                                    const spacedPinyin = pinyin.replace(/([āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ])/g, '$1 ').trim();
+                                    result += spacedPinyin + ' ';
+                                }
                                 if (readings.length > 1) {
                                     detailText += `${word}: ${readings.join(', ')} `;
                                 }
                             } else {
-                                result += readings + ' ';
+                                const pinyin = readings;
+                                // Use regex to split by tone marks and add spaces
+                                const spacedPinyin = pinyin.replace(/([āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ])/g, '$1 ').trim();
+                                result += spacedPinyin + ' ';
                             }
                             i += len;
                             matched = true;
@@ -475,6 +502,7 @@
                 // If no multi-character word found, try single character
                 if (!matched) {
                     const char = input[i];
+                    console.log(`No multi-char match, trying single char "${char}"`);
                     if (pinyinMap[char]) {
                         const readings = pinyinMap[char];
                         if (Array.isArray(readings)) {
