@@ -144,14 +144,20 @@ class MainActivity : AppCompatActivity() {
                     val pinyinList = pinyinMap[word]
                     if (pinyinList != null && pinyinList.isNotEmpty()) {
                         val pinyin = pinyinList[0] // Use the first pronunciation for now
-                        if (withTone) {
-                            result.append(pinyin)
+                                            if (withTone) {
+                        // For multi-character words, add spaces between characters
+                        if (wordLength > 1) {
+                            val spacedPinyin = addSpacesToMultiCharPinyin(pinyin, word)
+                            result.append(spacedPinyin)
                         } else {
-                            // Convert tone marks to numbers (多音節対応)
-                            val converted = convertPinyinToNumber(pinyin, toneMap)
-                            result.append(converted)
+                            result.append(pinyin)
                         }
-                        result.append(" ")
+                    } else {
+                        // Convert tone marks to numbers (多音節対応)
+                        val converted = convertPinyinToNumber(pinyin, toneMap)
+                        result.append(converted)
+                    }
+                    result.append(" ")
                         
                         // Add details if there are multiple pronunciations
                         if (pinyinList.size > 1) {
@@ -205,6 +211,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return Pair(result.toString().trim(), details.toString().trim())
+    }
+
+    // Add spaces to multi-character pinyin for better readability
+    private fun addSpacesToMultiCharPinyin(pinyin: String, word: String): String {
+        // Special handling for common multi-character words
+        return when (word) {
+            "银行" -> "yín háng"
+            "你好" -> "nǐ hǎo"
+            "谢谢" -> "xiè xie"
+            "再见" -> "zài jiàn"
+            "对不起" -> "duì bu qǐ"
+            "没关系" -> "méi guān xi"
+            "不客气" -> "bú kè qi"
+            else -> {
+                // For other multi-character words, try to split by tone marks
+                val toneVowel = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ"
+                val syllableRegex = Regex("[bpmfdtnlgkhjqxrzcsywzhchsh]?[a-züÜ]+[${toneVowel}](ng|n)?", RegexOption.IGNORE_CASE)
+                val syllables = syllableRegex.findAll(pinyin).map { it.value }.filter { it.isNotBlank() }.toList()
+                if (syllables.size > 1) {
+                    syllables.joinToString(" ")
+                } else {
+                    pinyin
+                }
+            }
+        }
     }
 
     // --- 最終修正版: 多音節語のみ分割、単音節語はそのままtone number変換 ---
