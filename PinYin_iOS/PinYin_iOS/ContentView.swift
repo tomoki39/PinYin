@@ -165,8 +165,8 @@ struct ContentView: View {
                 let char = String(chars[i])
                 if let pinyinList = pinyinMap[char], !pinyinList.isEmpty {
                     let pinyin = pinyinList[0]
-                    if showTones {
-                        result += pinyin + " "
+                if showTones {
+                    result += pinyin + " "
                     } else {
                         result += convertPinyinToNumber(pinyin, toneMap: toneMap) + " "
                     }
@@ -199,17 +199,17 @@ struct ContentView: View {
         }
         return syllables.map { syll in
             var converted = syll
-            var toneNumber: Character? = nil
-            for (toneChar, (plain, num)) in toneMap {
-                if converted.contains(toneChar) {
-                    converted = converted.replacingOccurrences(of: String(toneChar), with: String(plain))
-                    toneNumber = num
-                    break
-                }
-            }
-            if let toneNumber = toneNumber {
-                converted += String(toneNumber)
-            }
+                    var toneNumber: Character? = nil
+                    for (toneChar, (plain, num)) in toneMap {
+                        if converted.contains(toneChar) {
+                            converted = converted.replacingOccurrences(of: String(toneChar), with: String(plain))
+                            toneNumber = num
+                            break
+                        }
+                    }
+                    if let toneNumber = toneNumber {
+                        converted += String(toneNumber)
+                    }
             return converted
         }.joined(separator: " ")
     }
