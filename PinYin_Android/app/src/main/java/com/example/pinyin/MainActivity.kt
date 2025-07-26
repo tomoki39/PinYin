@@ -26,12 +26,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         actionBar?.hide()
         
-        // Set window flags to ensure no title bar
-        window.setFlags(
-            android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-        
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
