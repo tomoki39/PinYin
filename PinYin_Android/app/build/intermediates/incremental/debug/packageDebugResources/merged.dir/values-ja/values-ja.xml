@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PinYin</string>
+    <string name="app_title">中国語からピンイン</string>
+    <string name="conversion_error">変換中にエラーが発生しました</string>
+    <string name="enter_characters_to_convert">中国語の文字を入力して変換してください</string>
+    <string name="enter_chinese_characters">中国語の文字を入力</string>
+    <string name="no_characters_entered">中国語の文字を入力してください</string>
+    <string name="result">結果</string>
+    <string name="tonal_format">声調形式：</string>
+    <string name="tonal_numbers">声調番号 (a1, a2, a3, a4)</string>
+    <string name="tonal_signs">声調記号 (ā, á, ǎ, à)</string>
+</resources>

@@ -29,5 +29,9 @@
         <!-- Hide ActionBar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="actionBarStyle">@android:style/Widget.Holo.Light.ActionBar</item>
+        <item name="android:actionBarStyle">@android:style/Widget.Holo.Light.ActionBar</item>
     </style>
 </resources> 
