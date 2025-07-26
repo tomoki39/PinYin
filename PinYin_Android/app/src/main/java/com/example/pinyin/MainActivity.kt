@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Hide action bar programmatically to ensure it works on all devices
+        supportActionBar?.hide()
+        actionBar?.hide()
+        
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         

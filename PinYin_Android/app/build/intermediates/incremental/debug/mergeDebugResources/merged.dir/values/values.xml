@@ -6586,6 +6586,10 @@
         
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="actionBarStyle">@android:style/Widget.Holo.Light.ActionBar</item>
+        <item name="android:actionBarStyle">@android:style/Widget.Holo.Light.ActionBar</item>
     </style>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>

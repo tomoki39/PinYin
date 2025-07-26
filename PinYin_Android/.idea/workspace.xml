@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a4a856a-aa29-483b-936f-ba0fb76eaa14" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PinYin_iOS/PinYin_iOS/ContentView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../PinYin_iOS/PinYin_iOS/ContentView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PinYin_iOS/PinYin_iOS/Resources/pinyin_map.json" beforeDir="false" afterPath="$PROJECT_DIR$/../PinYin_iOS/PinYin_iOS/Resources/pinyin_map.json" afterDir="false" />
-    </list>
+    <list default="true" id="5a4a856a-aa29-483b-936f-ba0fb76eaa14" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,7 +52,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "feature/iconchange",
+    "git-widget-placeholder": "feature/andronise",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/tomoki/MyApps/PinYin/PinYin_Android",
     "settings.editor.selected.configurable": "device.mirroring"
