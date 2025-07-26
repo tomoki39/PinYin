@@ -147,6 +147,9 @@ struct ContentView: View {
             "ǖ": ("v", "1"), "ǘ": ("v", "2"), "ǚ": ("v", "3"), "ǜ": ("v", "4")
         ]
         
+        // 重複除去用の辞書
+        var uniqueDetails: [String: [String]] = [:]
+        
         // Helper function to add spaces to multi-character pinyin
         func addSpacesToMultiCharPinyin(_ pinyin: String, _ word: String) -> String {
             switch word {
@@ -407,7 +410,8 @@ struct ContentView: View {
                         }
                         if pinyinList.count > 1 {
                             let detailReadings = pinyinList.map { showTones ? addSpacesToMultiCharPinyin($0, word) : convertPinyinToNumber($0, toneMap: toneMap) }
-                            details += "\(word): \(detailReadings.joined(separator: ", "))\n"
+                            // 重複除去用の辞書に追加
+                            uniqueDetails[word] = detailReadings
                         }
                         i += wordLen
                         matched = true
@@ -426,7 +430,8 @@ struct ContentView: View {
                     }
                     if pinyinList.count > 1 {
                         let detailReadings = pinyinList.map { showTones ? $0 : convertPinyinToNumber($0, toneMap: toneMap) }
-                        details += "\(char): \(detailReadings.joined(separator: ", "))\n"
+                        // 重複除去用の辞書に追加
+                        uniqueDetails[char] = detailReadings
                     }
                 } else {
                     result += char + " "
@@ -434,6 +439,12 @@ struct ContentView: View {
                 i += 1
             }
         }
+        
+        // 重複除去された詳細情報を表示用の文字列に変換
+        for (char, readings) in uniqueDetails {
+            details += "\(char): \(readings.joined(separator: ", "))\n"
+        }
+        
         pinyinText = result.trimmingCharacters(in: .whitespaces)
         detailText = details.trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -529,18 +540,21 @@ struct ResultCard: View {
                     .foregroundColor(Color("AppPrimaryColor"))
                     .padding(.top, 8)
                 
-                Text(detailText)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color("CardBackground"))
-                    .cornerRadius(12)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color("AppPrimaryColor").opacity(0.2), lineWidth: 1)
-                    )
-                    .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                ScrollView {
+                    Text(detailText)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .frame(maxHeight: 200) // 最大高さを制限
+                .background(Color("CardBackground"))
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color("AppPrimaryColor").opacity(0.2), lineWidth: 1)
+                )
+                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
             }
         }
         .padding(.horizontal)
