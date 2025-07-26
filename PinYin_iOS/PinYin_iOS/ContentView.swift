@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
     @State private var chineseText = ""
@@ -8,6 +9,7 @@ struct ContentView: View {
     @State private var showTones = true
     @State private var loading = true
     @State private var error: String? = nil
+    @FocusState private var isTextFieldFocused: Bool
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -31,6 +33,7 @@ struct ContentView: View {
                 VStack(spacing: 16) {
                     TextField("enter_chinese_characters", text: $chineseText)
                         .textFieldStyle(CustomTextFieldStyle())
+                        .focused($isTextFieldFocused)
                         .onChange(of: chineseText) { _, newValue in
                             convertToPinyin(newValue)
                         }
@@ -77,10 +80,18 @@ struct ContentView: View {
             .padding()
             .background(Color(.systemBackground))
             .navigationBarHidden(true)
+            .onTapGesture {
+                hideKeyboard()
+            }
         }
         .onAppear {
             loadPinyinData()
         }
+    }
+    
+    private func hideKeyboard() {
+        isTextFieldFocused = false
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
     private func loadPinyinData() {
