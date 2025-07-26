@@ -1,7 +1,19 @@
 {
   "app_title": "ピンイン",
   "input_label": "中国語テキスト：",
-  "convert_btn": "変換",
+  "convert_btn": "ピンインに変換",
   "clear_btn": "クリア",
-  "result_label": "ピンイン"
+  "result_label": "ピンインがここに表示されます...",
+  "details": "詳細",
+  "subtitle": "中国語からピンインへの変換",
+  "tone_format": "声調形式：",
+  "tonal_signs": "声調符号 (ā, á, ǎ, à)",
+  "tonal_numbers": "声調数字 (a1, a2, a3, a4)",
+  "placeholder": "ここに中国語文字を入力してください...",
+  "app_description": "これはネイティブアプリのように動作するプログレッシブウェブアプリです！",
+  "install_title": "📲 ネイティブアプリとしてインストール:",
+  "install_step1": "ブラウザで共有ボタン（📤）をタップ",
+  "install_step2": "「ホーム画面に追加」を選択",
+  "install_step3": "インストールするには「追加」をタップ",
+  "install_step4": "ピンインアイコンがホーム画面に表示されます！"
 } 

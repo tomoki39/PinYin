@@ -1,7 +1,19 @@
 {
   "app_title": "PinYin",
-  "input_label": "Texte chinois :",
-  "convert_btn": "Convertir",
+  "input_label": "Texte Chinois:",
+  "convert_btn": "Convertir en Pinyin",
   "clear_btn": "Effacer",
-  "result_label": "PinYin"
+  "result_label": "Le Pinyin apparaîtra ici...",
+  "details": "Détails",
+  "subtitle": "Convertisseur Chinois vers Pinyin",
+  "tone_format": "Format de ton:",
+  "tonal_signs": "Signes tonaux (ā, á, ǎ, à)",
+  "tonal_numbers": "Nombres tonaux (a1, a2, a3, a4)",
+  "placeholder": "Entrez des caractères chinois ici...",
+  "app_description": "C'est une application web progressive qui fonctionne comme une application native !",
+  "install_title": "📲 Installer comme application native:",
+  "install_step1": "Appuyez sur le bouton Partager (📤) dans votre navigateur",
+  "install_step2": "Sélectionnez 'Ajouter à l'écran d'accueil'",
+  "install_step3": "Appuyez sur 'Ajouter' pour installer",
+  "install_step4": "L'icône PinYin apparaîtra sur votre écran d'accueil !"
 } 

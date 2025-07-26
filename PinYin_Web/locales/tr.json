@@ -1,7 +1,19 @@
 {
   "app_title": "PinYin",
   "input_label": "Çince Metin:",
-  "convert_btn": "Dönüştür",
+  "convert_btn": "Pinyin'e Dönüştür",
   "clear_btn": "Temizle",
-  "result_label": "PinYin"
+  "result_label": "Pinyin burada görünecek...",
+  "details": "Detaylar",
+  "subtitle": "Çince-Pinyin Dönüştürücü",
+  "tone_format": "Ton formatı:",
+  "tonal_signs": "Ton işaretleri (ā, á, ǎ, à)",
+  "tonal_numbers": "Ton numaraları (a1, a2, a3, a4)",
+  "placeholder": "Buraya Çince karakterler girin...",
+  "app_description": "Bu, yerel uygulama gibi çalışan bir ilerleyici web uygulamasıdır!",
+  "install_title": "📲 Yerel Uygulama Olarak Yükle:",
+  "install_step1": "Tarayıcınızda Paylaş düğmesine (📤) dokunun",
+  "install_step2": "'Ana Ekrana Ekle'yi seçin",
+  "install_step3": "Yüklemek için 'Ekle'ye dokunun",
+  "install_step4": "PinYin simgesi ana ekranınızda görünecek!"
 } 

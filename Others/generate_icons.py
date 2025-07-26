@@ -232,8 +232,8 @@ def create_chinese_style_icon(size=512):
     img = Image.new('RGBA', (size, size), (255, 255, 255, 255))  # White background
     draw = ImageDraw.Draw(img)
     
-    # Add red text "拼音" with 55% font size
-    font_size = int(size * 0.55)  # フォントサイズを計算（画像サイズの約55%）
+    # Add red text "拼音" with 50% font size
+    font_size = int(size * 0.50)  # フォントサイズを計算（画像サイズの約50%）
     font = get_chinese_font(font_size)
     
     text = "拼音"
