@@ -149,20 +149,27 @@ class MainActivity : AppCompatActivity() {
                     val pinyinList = pinyinMap[word]
                     if (pinyinList != null && pinyinList.isNotEmpty()) {
                         val pinyin = pinyinList[0] // Use the first pronunciation for now
-                                            if (withTone) {
-                        // For multi-character words, add spaces between characters
-                        if (wordLength > 1) {
-                            val spacedPinyin = addSpacesToMultiCharPinyin(pinyin, word)
-                            result.append(spacedPinyin)
+                        if (withTone) {
+                            // For multi-character words, add spaces between characters
+                            if (wordLength > 1) {
+                                val spacedPinyin = addSpacesToMultiCharPinyin(pinyin, word)
+                                result.append(spacedPinyin)
+                            } else {
+                                result.append(pinyin)
+                            }
                         } else {
-                            result.append(pinyin)
+                            // Convert tone marks to numbers (多音節対応)
+                            if (wordLength > 1) {
+                                // 多音節語の場合は、まず声调記号でスペースを追加してから数字に変換
+                                val spacedPinyin = addSpacesToMultiCharPinyin(pinyin, word)
+                                val converted = convertPinyinToNumber(spacedPinyin, toneMap)
+                                result.append(converted)
+                            } else {
+                                val converted = convertPinyinToNumber(pinyin, toneMap)
+                                result.append(converted)
+                            }
                         }
-                    } else {
-                        // Convert tone marks to numbers (多音節対応)
-                        val converted = convertPinyinToNumber(pinyin, toneMap)
-                        result.append(converted)
-                    }
-                    result.append(" ")
+                        result.append(" ")
                         
                         // Add details if there are multiple pronunciations
                         if (pinyinList.size > 1) {
@@ -457,28 +464,43 @@ class MainActivity : AppCompatActivity() {
     // --- 最終修正版: 多音節語のみ分割、単音節語はそのままtone number変換 ---
     private fun convertPinyinToNumber(pinyin: String, toneMap: Map<Char, Pair<Char, Char>>): String {
         val toneVowel = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜaeiouü"
+        
+        // 既にスペースが含まれている場合は、各音節を個別に変換
+        if (pinyin.contains(" ")) {
+            return pinyin.split(" ").joinToString(" ") { syllable ->
+                convertSingleSyllableToNumber(syllable, toneMap)
+            }
+        }
+        
         // 2音節以上（5文字以上、スペース・ハイフンなし）の場合のみ分割
         val needsSplit = pinyin.length > 4 && !pinyin.contains(" ") && !pinyin.contains("-")
         val syllables = if (needsSplit) {
-            val syllableRegex = Regex("[bpmfdtnlgkhjqxrzcsywzhchsh]?[a-züÜ]+[${toneVowel}](ng|n)?", RegexOption.IGNORE_CASE)
+            // より正確な音節分割のための正規表現
+            val syllableRegex = Regex("([bpmfdtnlgkhjqxrzcsyw]|zh|ch|sh)?[aeiouü]+[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]?(ng|n)?", RegexOption.IGNORE_CASE)
             val found = syllableRegex.findAll(pinyin).map { it.value }.filter { it.isNotBlank() }.toList()
             if (found.isNotEmpty()) found else listOf(pinyin)
         } else {
             listOf(pinyin)
         }
         return syllables.joinToString(" ") { syllable ->
-            var converted = syllable
-            var toneNumber: Char? = null
-            for ((toneChar, pair) in toneMap) {
-                if (converted.contains(toneChar)) {
-                    converted = converted.replace(toneChar.toString(), pair.first.toString())
-                    toneNumber = pair.second
-                    break
-                }
+            convertSingleSyllableToNumber(syllable, toneMap)
+        }
+    }
+    
+    // 単一音節を声调数字に変換
+    private fun convertSingleSyllableToNumber(syllable: String, toneMap: Map<Char, Pair<Char, Char>>): String {
+        var converted = syllable
+        var toneNumber: Char? = null
+        for ((toneChar, pair) in toneMap) {
+            if (converted.contains(toneChar)) {
+                converted = converted.replace(toneChar.toString(), pair.first.toString())
+                toneNumber = pair.second
+                break
             }
-            if (toneNumber != null) {
-                converted += toneNumber
-            }
+        }
+        return if (toneNumber != null) {
+            converted + toneNumber
+        } else {
             converted
         }
     }

@@ -389,7 +389,10 @@ struct ContentView: View {
                             let spacedPinyin = addSpacesToMultiCharPinyin(pinyin, word)
                             result += spacedPinyin + " "
                         } else {
-                            result += convertPinyinToNumber(pinyin, toneMap: toneMap) + " "
+                            // 多音節語の場合は、まず声调記号でスペースを追加してから数字に変換
+                            let spacedPinyin = addSpacesToMultiCharPinyin(pinyin, word)
+                            let converted = convertPinyinToNumber(spacedPinyin, toneMap: toneMap)
+                            result += converted + " "
                         }
                         if pinyinList.count > 1 {
                             let detailReadings = pinyinList.map { showTones ? addSpacesToMultiCharPinyin($0, word) : convertPinyinToNumber($0, toneMap: toneMap) }
@@ -426,10 +429,20 @@ struct ContentView: View {
     
     private func convertPinyinToNumber(_ pinyin: String, toneMap: [Character: (Character, Character)]) -> String {
         let toneVowel = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜaeiouü"
+        
+        // 既にスペースが含まれている場合は、各音節を個別に変換
+        if pinyin.contains(" ") {
+            return pinyin.components(separatedBy: " ").map { syllable in
+                convertSingleSyllableToNumber(syllable, toneMap: toneMap)
+            }.joined(separator: " ")
+        }
+        
+        // 2音節以上（5文字以上、スペース・ハイフンなし）の場合のみ分割
         let needsSplit = pinyin.count > 4 && !pinyin.contains(" ") && !pinyin.contains("-")
         var syllables: [String]
         if needsSplit {
-            let regex = try! NSRegularExpression(pattern: "[bpmfdtnlgkhjqxrzcsywzhchsh]?[a-züÜ]+[\(toneVowel)](ng|n)?", options: .caseInsensitive)
+            // より正確な音節分割のための正規表現
+            let regex = try! NSRegularExpression(pattern: "([bpmfdtnlgkhjqxrzcsyw]|zh|ch|sh)?[aeiouü]+[\(toneVowel)]?(ng|n)?", options: .caseInsensitive)
             let nsrange = NSRange(pinyin.startIndex..<pinyin.endIndex, in: pinyin)
             let matches = regex.matches(in: pinyin, options: [], range: nsrange)
             syllables = matches.map { String(pinyin[Range($0.range, in: pinyin)!]) }
@@ -437,21 +450,23 @@ struct ContentView: View {
         } else {
             syllables = [pinyin]
         }
-        return syllables.map { syll in
-            var converted = syll
-            var toneNumber: Character? = nil
-            for (toneChar, (plain, num)) in toneMap {
-                if converted.contains(toneChar) {
-                    converted = converted.replacingOccurrences(of: String(toneChar), with: String(plain))
-                    toneNumber = num
-                    break
-                }
-            }
-            if let toneNumber = toneNumber {
-                converted += String(toneNumber)
-            }
-            return converted
+        return syllables.map { syllable in
+            convertSingleSyllableToNumber(syllable, toneMap: toneMap)
         }.joined(separator: " ")
+    }
+    
+    // 単一音節を声调数字に変換
+    private func convertSingleSyllableToNumber(_ syllable: String, toneMap: [Character: (Character, Character)]) -> String {
+        var converted = syllable
+        var toneNumber: Character? = nil
+        for (toneChar, (plain, num)) in toneMap {
+            if converted.contains(toneChar) {
+                converted = converted.replacingOccurrences(of: String(toneChar), with: String(plain))
+                toneNumber = num
+                break
+            }
+        }
+        return toneNumber != nil ? converted + String(toneNumber!) : converted
     }
 }
 
