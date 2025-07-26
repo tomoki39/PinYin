@@ -10,3 +10,4 @@
 "conversion_error" = "Virhe muunnossa";
 "loading_pinyin_data" = "Ladataan pinyin-tietoja...";
 "pinyin" = "Pinyin:";
+"details" = "Yksityiskohdat (useita lukutapoja):";

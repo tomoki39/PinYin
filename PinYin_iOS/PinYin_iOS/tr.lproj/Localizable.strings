@@ -10,3 +10,4 @@
 "conversion_error" = "Dönüştürme sırasında hata oluştu";
 "loading_pinyin_data" = "PinYin verileri yükleniyor...";
 "pinyin" = "PinYin:";
+"details" = "Detaylar (birden fazla okunuş):";

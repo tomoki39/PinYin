@@ -10,3 +10,4 @@
 "conversion_error" = "변환 중 오류가 발생했습니다";
 "loading_pinyin_data" = "병음 데이터를 로딩 중...";
 "pinyin" = "병음:";
+"details" = "세부사항:";

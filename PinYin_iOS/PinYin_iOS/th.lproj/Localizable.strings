@@ -10,3 +10,4 @@
 "conversion_error" = "เกิดข้อผิดพลาดในการแปลง";
 "loading_pinyin_data" = "กำลังโหลดข้อมูล pinyin...";
 "pinyin" = "Pinyin:";
+"details" = "รายละเอียด (การอ่านหลายแบบ):";

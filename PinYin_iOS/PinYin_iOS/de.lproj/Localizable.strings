@@ -10,3 +10,4 @@
 "conversion_error" = "Fehler bei der Konvertierung";
 "loading_pinyin_data" = "Lade Pinyin-Daten...";
 "pinyin" = "Pinyin:";
+"details" = "Details (mehrere Lesungen):";
