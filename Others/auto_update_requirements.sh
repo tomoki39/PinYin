@@ -5,9 +5,16 @@
 
 echo "🔄 Starting requirements documentation update..."
 
+# Get the project root (parent directory of Others folder)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Change to project root
+cd "$PROJECT_ROOT"
+
 # Generate documentation
 echo "📝 Generating requirements documentation..."
-python3 generate_requirements_doc.py
+python3 Others/generate_requirements_doc.py
 
 # Check if there are changes
 if git diff --quiet docs/; then

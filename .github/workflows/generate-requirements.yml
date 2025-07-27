@@ -33,7 +33,7 @@ jobs:
         
     - name: Generate requirements documentation
       run: |
-        python generate_requirements_doc.py
+        python Others/generate_requirements_doc.py
         
     - name: Commit and push changes
       run: |

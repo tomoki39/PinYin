@@ -247,7 +247,11 @@ Based on code analysis, the following features are implemented:
 
 def main():
     """Main function to generate requirements documentation"""
-    generator = RequirementsGenerator("/Users/tomoki/MyApps/PinYin")
+    # Get the project root (parent directory of Others folder)
+    current_dir = Path(__file__).parent
+    project_root = current_dir.parent
+    
+    generator = RequirementsGenerator(str(project_root))
     
     print("Analyzing project structure...")
     generator.analyze_project_structure()
