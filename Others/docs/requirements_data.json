@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-07-27T23:24:18.422906",
+  "generated_at": "2025-07-27T23:35:07.429002",
   "project_root": "/home/runner/work/PinYin/PinYin",
   "requirements": {
     "project_info": {},
@@ -908,8 +908,8 @@
         ],
         "dependencies": [],
         "features": [
-          "Localization (Android)",
-          "Pinyin Database"
+          "Pinyin Database",
+          "Localization (Android)"
         ]
       },
       "PinYin_iOS": {
@@ -1029,9 +1029,9 @@
         ],
         "dependencies": [],
         "features": [
-          "PWA Manifest",
+          "Localization (Web)",
           "Pinyin Database",
-          "Localization (Web)"
+          "PWA Manifest"
         ]
       }
     },
