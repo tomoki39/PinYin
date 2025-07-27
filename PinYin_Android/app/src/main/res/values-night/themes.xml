@@ -26,5 +26,14 @@
         <!-- System bar icons -->
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+        <!-- Hide ActionBar but show StatusBar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="actionBarStyle">@android:style/Widget.Holo.Light.ActionBar</item>
+        <item name="android:actionBarStyle">@android:style/Widget.Holo.Light.ActionBar</item>
     </style>
 </resources> 

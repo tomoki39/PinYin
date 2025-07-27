@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.pinyin.app-mergeDebugResources-29:/values-night-v8/values-night-v8.xml",
+            "outputFile": "/Users/tomoki/.gradle/daemon/8.13/com.example.pinyin.app-mergeDebugResources-29:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
                     "source": "/Users/tomoki/MyApps/PinYin/PinYin_Android/app/src/main/res/values-night/colors.xml",
@@ -71,6 +71,75 @@
                         "endLines": "78",
                         "endColumns": "12",
                         "endOffsets": "5710"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.example.pinyin.app-mergeDebugResources-29:/values-night-v8/values-night-v8.xml",
+            "map": [
+                {
+                    "source": "/Users/tomoki/MyApps/PinYin/PinYin_Android/app/src/main/res/values-night/colors.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "100,147,192,232,282,330,380,428,486,531,578,623,676,724,771,819,866,917",
+                        "endColumns": "46,44,39,49,47,49,47,57,44,46,44,52,47,46,47,46,50,39",
+                        "endOffsets": "142,187,227,277,325,375,423,481,526,573,618,671,719,766,814,861,912,952"
+                    }
+                },
+                {
+                    "source": "/Users/tomoki/.gradle/caches/8.13/transforms/0c7095957d1f5555a1c94ec4ada5f581/transformed/appcompat-1.6.1/res/values-night-v8/values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "20,21,22,23,24,25,26,88",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "957,1027,1111,1195,1291,1393,1495,6239",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "1022,1106,1190,1286,1388,1490,1584,6323"
+                    }
+                },
+                {
+                    "source": "/Users/tomoki/.gradle/caches/8.13/transforms/f6c9eeec81a46c0d55be2edbbeb15834/transformed/material-1.11.0/res/values-night-v8/values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,89,90,91,92,93,94,95,96",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1589,1664,1775,1864,1965,2072,2179,2278,2385,2488,2576,2700,2802,2904,3020,3122,3236,3364,3480,3602,3738,3858,3992,4112,4224,6328,6445,6569,6699,6821,6959,7093,7209",
+                        "endColumns": "74,110,88,100,106,106,98,106,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
+                        "endOffsets": "1659,1770,1859,1960,2067,2174,2273,2380,2483,2571,2695,2797,2899,3015,3117,3231,3359,3475,3597,3733,3853,3987,4107,4219,4345,6440,6564,6694,6816,6954,7088,7204,7324"
+                    }
+                },
+                {
+                    "source": "/Users/tomoki/MyApps/PinYin/PinYin_Android/app/src/main/res/values-night/themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "114",
+                        "endLines": "37",
+                        "endColumns": "12",
+                        "endOffsets": "2296"
+                    },
+                    "to": {
+                        "startLines": "52",
+                        "startColumns": "4",
+                        "startOffsets": "4350",
+                        "endLines": "87",
+                        "endColumns": "12",
+                        "endOffsets": "6234"
                     }
                 }
             ]

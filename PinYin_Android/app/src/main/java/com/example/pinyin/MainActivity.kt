@@ -137,8 +137,10 @@ class MainActivity : AppCompatActivity() {
             'ǖ' to Pair('v', '1'), 'ǘ' to Pair('v', '2'), 'ǚ' to Pair('v', '3'), 'ǜ' to Pair('v', '4')
         )
 
+        // 重複除去用の辞書
+        val uniqueDetails = mutableMapOf<String, List<String>>()
+
         val result = StringBuilder()
-        val details = StringBuilder()
         var i = 0
         while (i < text.length) {
             // Try to match multi-character words first (like "银行")
@@ -171,16 +173,25 @@ class MainActivity : AppCompatActivity() {
                         }
                         result.append(" ")
                         
-                        // Add details if there are multiple pronunciations
+                        // 重複除去用の辞書に追加
                         if (pinyinList.size > 1) {
                             val detailReadings = pinyinList.map { pinyin ->
                                 if (withTone) {
-                                    pinyin
+                                    if (wordLength > 1) {
+                                        addSpacesToMultiCharPinyin(pinyin, word)
+                                    } else {
+                                        pinyin
+                                    }
                                 } else {
-                                    convertPinyinToNumber(pinyin, toneMap)
+                                    if (wordLength > 1) {
+                                        val spacedPinyin = addSpacesToMultiCharPinyin(pinyin, word)
+                                        convertPinyinToNumber(spacedPinyin, toneMap)
+                                    } else {
+                                        convertPinyinToNumber(pinyin, toneMap)
+                                    }
                                 }
                             }
-                            details.append("$word: ${detailReadings.joinToString(", ")}\n")
+                            uniqueDetails[word] = detailReadings
                         }
                         
                         i += wordLength
@@ -204,7 +215,7 @@ class MainActivity : AppCompatActivity() {
                         result.append(converted)
                     }
                     
-                    // Add details if there are multiple pronunciations
+                    // 重複除去用の辞書に追加
                     if (pinyinList.size > 1) {
                         val detailReadings = pinyinList.map { pinyin ->
                             if (withTone) {
@@ -213,7 +224,7 @@ class MainActivity : AppCompatActivity() {
                                 convertPinyinToNumber(pinyin, toneMap)
                             }
                         }
-                        details.append("$char: ${detailReadings.joinToString(", ")}\n")
+                        uniqueDetails[char] = detailReadings
                     }
                 } else {
                     result.append(char)
@@ -222,6 +233,13 @@ class MainActivity : AppCompatActivity() {
                 i++
             }
         }
+        
+        // 重複除去された詳細情報を表示用の文字列に変換
+        val details = StringBuilder()
+        for ((char, readings) in uniqueDetails) {
+            details.append("$char: ${readings.joinToString(", ")}\n")
+        }
+        
         return Pair(result.toString().trim(), details.toString().trim())
     }
 
