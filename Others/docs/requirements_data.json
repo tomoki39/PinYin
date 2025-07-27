@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-07-27T15:16:49.455411",
+  "generated_at": "2025-07-27T15:18:45.277558",
   "project_root": "/Users/tomoki/MyApps/PinYin",
   "requirements": {
     "project_info": {},
@@ -1005,8 +1005,8 @@
           ".idea/caches/deviceStreaming.xml"
         ],
         "languages": [
-          "Web Technologies",
-          "Kotlin/Java"
+          "Kotlin/Java",
+          "Web Technologies"
         ],
         "dependencies": [],
         "features": [
@@ -1077,13 +1077,13 @@
           "PinYin_iOS/hi.lproj/Localizable.strings"
         ],
         "languages": [
-          "Web Technologies",
-          "Swift"
+          "Swift",
+          "Web Technologies"
         ],
         "dependencies": [],
         "features": [
-          "Pinyin Database",
-          "Localization (iOS)"
+          "Localization (iOS)",
+          "Pinyin Database"
         ]
       },
       "PinYin_Web": {
@@ -1139,8 +1139,8 @@
         "dependencies": [],
         "features": [
           "PWA Manifest",
-          "Pinyin Database",
-          "Localization (Web)"
+          "Localization (Web)",
+          "Pinyin Database"
         ]
       }
     },
