@@ -81,7 +81,7 @@ python -m http.server 8000
 ## 📚 Documentation
 
 - **[Detailed Requirements Specification](PinYin_Requirements_Specification.md)**: Comprehensive technical specifications
-- **[Auto-generated Documentation](docs/requirements_auto_generated.md)**: Real-time project analysis
+- **[Auto-generated Documentation](Others/docs/requirements_auto_generated.md)**: Real-time project analysis
 - **[Build Instructions](Others/README.md)**: Development and deployment guides
 
 ## 🔄 Automation

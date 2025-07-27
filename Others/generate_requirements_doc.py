@@ -226,7 +226,7 @@ Based on code analysis, the following features are implemented:
             "requirements": self.requirements
         }
     
-    def save_documentation(self, output_dir: str = "docs"):
+    def save_documentation(self, output_dir: str = "Others/docs"):
         """Save documentation in multiple formats"""
         output_path = Path(output_dir)
         output_path.mkdir(exist_ok=True)

@@ -17,14 +17,14 @@ echo "📝 Generating requirements documentation..."
 python3 Others/generate_requirements_doc.py
 
 # Check if there are changes
-if git diff --quiet docs/; then
+if git diff --quiet Others/docs/; then
     echo "✅ No changes detected in documentation"
     exit 0
 fi
 
 # Add changes
 echo "📦 Adding changes to git..."
-git add docs/
+git add Others/docs/
 
 # Commit changes
 echo "💾 Committing changes..."

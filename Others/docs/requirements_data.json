@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-07-27T15:07:21.490038",
+  "generated_at": "2025-07-27T15:16:49.455411",
   "project_root": "/Users/tomoki/MyApps/PinYin",
   "requirements": {
     "project_info": {},
@@ -1005,8 +1005,8 @@
           ".idea/caches/deviceStreaming.xml"
         ],
         "languages": [
-          "Kotlin/Java",
-          "Web Technologies"
+          "Web Technologies",
+          "Kotlin/Java"
         ],
         "dependencies": [],
         "features": [
@@ -1077,8 +1077,8 @@
           "PinYin_iOS/hi.lproj/Localizable.strings"
         ],
         "languages": [
-          "Swift",
-          "Web Technologies"
+          "Web Technologies",
+          "Swift"
         ],
         "dependencies": [],
         "features": [

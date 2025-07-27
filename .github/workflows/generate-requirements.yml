@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, develop ]
     paths-ignore:
-      - 'docs/**'
+      - 'Others/docs/**'
       - 'PinYin_Requirements_Specification.md'
   workflow_dispatch:
 
@@ -39,7 +39,7 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add docs/
+        git add Others/docs/
         git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update requirements documentation
 
         - Updated requirements specification based on current codebase
