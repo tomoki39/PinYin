@@ -465,6 +465,12 @@ class MainActivity : AppCompatActivity() {
             "没关系" -> "méi guān xi"
             "不客气" -> "bú kè qi"
             
+            // 北 - běi（3声）
+            "北京" -> "běi jīng"
+            "北方" -> "běi fāng"
+            "东北" -> "dōng běi"
+            "西北" -> "xī běi"
+            
             else -> {
                 // For other multi-character words, try to split by tone marks
                 val toneVowel = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ"
