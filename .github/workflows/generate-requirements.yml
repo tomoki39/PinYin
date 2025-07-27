@@ -1,11 +1,7 @@
 name: Generate Requirements Documentation
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+  workflow_dispatch:  # Manual trigger only
 
 jobs:
   generate-docs:
@@ -28,10 +24,9 @@ jobs:
       run: |
         python generate_requirements_doc.py
         
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs/
-        git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update requirements documentation"
-        git push 
+    - name: Upload generated documentation as artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: requirements-documentation
+        path: docs/
+        retention-days: 30 
